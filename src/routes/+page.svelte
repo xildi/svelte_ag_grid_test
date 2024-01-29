@@ -552,6 +552,7 @@
         <option value={100}> 100 </option>
         <option value={1000}> 1000 </option>
         <option value={10000}> 10000 </option>
+        <option value={50000}> 50000 </option>
         <option value={100000}> 100000 </option>
     </select>
     <div id="myGrid" style="height: 92vh; width:100%;" class={theme} />
