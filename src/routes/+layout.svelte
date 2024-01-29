@@ -19,7 +19,7 @@
         background: #222628;
     }
     #content {
-        height: 100vh;
+        height: 94vh;
     }
     #page {
         height: 100%;

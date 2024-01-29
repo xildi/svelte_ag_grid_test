@@ -4,10 +4,22 @@
     import type { GridOptions } from "ag-grid-community";
     import type { PageData } from "./$types";
     import "ag-grid-community/styles/ag-grid.css";
+    import "ag-grid-community/styles/ag-theme-balham.css";
     import "ag-grid-community/styles/ag-theme-alpine.css";
+    import "ag-grid-community/styles/ag-theme-quartz.css";
+    import "ag-grid-community/styles/ag-theme-material.css";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
-
+    let theme = 'ag-theme-alpine-dark';
+    let themes = [
+        'ag-theme-alpine-dark',
+        'ag-theme-balham-dark',
+        'ag-theme-quartz-dark',
+        'ag-theme-alpine',
+        'ag-theme-balham',
+        'ag-theme-quartz',
+        'ag-theme-material',
+    ]
     function currencyFormatter(params) {
         if (
             params.value !== undefined &&
@@ -37,7 +49,20 @@
         res += `</span>`;
         return res;
     }
-
+    function starRendererFilter(params) {
+        if (params.value === "(Select All)") {
+            return `<span>(Select All)</span>`;
+        }
+        if (params.value == 0) {
+            return `<span>No Stars</span>`;
+        }
+        let res = `<span>`;
+        for (let i = 0; i < params.value; i++) {
+            res += starRendererHelper();
+        }
+        res += `</span>`;
+        return res;
+    }
     function starRendererHelper() {
         return `<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
@@ -68,6 +93,15 @@
     function booleanTick(params) {
         if (params.value === "true") {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
+        }
+        return `<i class="ag-icon ag-icon-cross content-icon"/>`;
+    }
+    function booleanTickFilter(params) {
+        if (params.value === "true") {
+            return `<i class="ag-icon ag-icon-tick content-icon"/>`;
+        } else if (params.value === "(Select All)") {
+
+        return `(Select All)`;
         }
         return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
@@ -270,6 +304,7 @@
             filter: "agTextColumnFilter",
             minWidth: 150,
             pivot: true,
+            floatingFilter: true,
         },
         defaultColGroupDef: {
             marryChildren: true,
@@ -290,6 +325,10 @@
                             values: languages,
                         },
                         enableRowGroup: true,
+                        filter: true,
+                        filterParams: {
+                            values: languages,
+                        }
                     },
                     {
                         field: "Country",
@@ -301,6 +340,11 @@
                         },
                         cellRenderer: countryFlagRenderer,
                         enableRowGroup: true,
+                        filter: true,
+                        filterParams: {
+                            values: country_names,
+                            cellRenderer: countryFlagRenderer,
+                        }
                     },
                 ],
                 enableRowGroup: true,
@@ -324,6 +368,10 @@
                         cellRenderer: booleanTick,
                         cellStyle: { "text-align": "center" },
                         enableRowGroup: true,
+                        filter: true,
+                        filterParams: {
+                            cellRenderer: booleanTickFilter,
+                        }
                     },
                 ],
                 enableRowGroup: true,
@@ -346,6 +394,10 @@
                 headerName: "Rating",
                 cellRenderer: starRenderer,
                 enableRowGroup: true,
+                filter: true,
+                filterParams: {
+                    cellRenderer: starRendererFilter,
+                }
             },
             {
                 field: "Total_winnings",
@@ -454,12 +506,20 @@
         }
         grid = createGrid(gridEl, gridOptions);
     });
+
+    function handleSubmit() {
+
+    }
 </script>
 
 <div>
-    <div
-        id="myGrid"
-        style="height: 99vh; width:100%;"
-        class="ag-theme-alpine-dark"
-    />
+        <select bind:value={theme} >
+            {#each themes as theme}
+                <option value={theme}>
+                    {theme}
+                </option>
+            {/each}
+        </select>
+
+    <div id="myGrid" style="height: 92vh; width:100%;" class={theme} />
 </div>
