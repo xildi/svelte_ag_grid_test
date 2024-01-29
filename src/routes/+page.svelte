@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { createGrid } from "ag-grid-community";
-    import type { GridOptions } from "ag-grid-community";
+    import type { GridApi, GridOptions } from "ag-grid-community";
     import type { PageData } from "./$types";
     import "ag-grid-community/styles/ag-grid.css";
     import "ag-grid-community/styles/ag-theme-balham.css";
@@ -10,6 +10,33 @@
     import "ag-grid-community/styles/ag-theme-material.css";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
+
+    interface IRow {
+        id: number;
+        name: string;
+        language: string;
+        country: string;
+        game_name: string;
+        bought: boolean;
+        bank_balance: number;
+        rating: number;
+        total_winnings: number;
+        jan: number;
+        feb: number;
+        mar: number;
+        apr: number;
+        may: number;
+        jun: number;
+        jul: number;
+        aug: number;
+        sep: number;
+        oct: number;
+        nov: number;
+        dec: number;
+    }
+
+    let gridApi: GridApi<IRow>;
+
     let theme = "ag-theme-alpine-dark";
     let themes = [
         "ag-theme-alpine-dark",
@@ -21,11 +48,7 @@
         "ag-theme-material",
     ];
     function currencyFormatter(params) {
-        if (
-            params.value !== undefined &&
-            params.value !== null &&
-            !params.value.includes("CHF ")
-        ) {
+        if (params.value !== undefined && params.value !== null) {
             return params.value == null
                 ? ""
                 : "CHF " + numberWithCommas(params.value);
@@ -104,7 +127,6 @@
         }
         return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
-    let grid;
     let countries = [
         {
             name: "Ireland",
@@ -302,7 +324,7 @@
             editable: true,
             filter: "agTextColumnFilter",
             minWidth: 150,
-            enablePivot:true,
+            enablePivot: true,
             floatingFilter: true,
         },
         defaultColGroupDef: {
@@ -313,11 +335,15 @@
         rowGroupPanelShow: "always",
         columnDefs: [
             {
+                field: "id",
+                headerName: "ID",
+            },
+            {
                 headerName: "Participant",
                 children: [
-                    { field: "Name", headerName: "Name", enableRowGroup: true, },
+                    { field: "name", headerName: "Name", enableRowGroup: true },
                     {
-                        field: "Language",
+                        field: "language",
                         headerName: "Language",
                         cellEditor: "agRichSelectCellEditor",
                         cellEditorParams: {
@@ -330,7 +356,7 @@
                         },
                     },
                     {
-                        field: "Country",
+                        field: "country",
                         headerName: "Country",
                         cellEditor: "agRichSelectCellEditor",
                         cellEditorParams: {
@@ -352,7 +378,7 @@
                 headerName: "Game of Choice",
                 children: [
                     {
-                        field: "Game_Name",
+                        field: "game_name",
                         headerName: "Game Name",
                         cellEditor: "agRichSelectCellEditor",
                         cellEditorParams: {
@@ -361,7 +387,7 @@
                         enableRowGroup: true,
                     },
                     {
-                        field: "Bought",
+                        field: "bought",
                         headerName: "Bought",
                         type: "booleanType",
                         cellRenderer: booleanTick,
@@ -379,7 +405,7 @@
                 headerName: "Performance",
                 children: [
                     {
-                        field: "Bank_Balance",
+                        field: "bank_balance",
                         headerName: "Bank Balance",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
@@ -389,7 +415,7 @@
                 enableRowGroup: true,
             },
             {
-                field: "Rating",
+                field: "rating",
                 headerName: "Rating",
                 cellRenderer: starRenderer,
                 enableRowGroup: true,
@@ -399,7 +425,7 @@
                 },
             },
             {
-                field: "Total_winnings",
+                field: "total_winnings",
                 headerName: "Total Winnings",
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
@@ -409,84 +435,84 @@
                 headerName: "Montly Breakdown",
                 children: [
                     {
-                        field: "Jan",
+                        field: "jan",
                         headerName: "Jan",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Feb",
+                        field: "feb",
                         headerName: "Feb",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Mar",
+                        field: "mar",
                         headerName: "Mar",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Apr",
+                        field: "apr",
                         headerName: "Apr",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "May",
+                        field: "may",
                         headerName: "May",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Jun",
+                        field: "jun",
                         headerName: "Jun",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Jul",
+                        field: "jul",
                         headerName: "Jul",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Aug",
+                        field: "aug",
                         headerName: "Aug",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Sep",
+                        field: "sep",
                         headerName: "Sep",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Oct",
+                        field: "oct",
                         headerName: "Oct",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Nov",
+                        field: "nov",
                         headerName: "Nov",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                     },
                     {
-                        field: "Dec",
+                        field: "dec",
                         headerName: "Dec",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
@@ -495,16 +521,23 @@
                 ],
             },
         ],
-        rowData: data.input_list,
     };
-
+    let row_count: number;
     onMount(() => {
         const gridEl = document.getElementById("myGrid");
         if (!gridEl) {
             throw new Error("Grid element not found");
         }
-        grid = createGrid(gridEl, gridOptions);
+        gridApi = createGrid(gridEl, gridOptions);
+        gridApi.setGridOption("rowData", data.input_list);
     });
+    async function onChange() {
+        gridApi.showLoadingOverlay();
+        const res = await fetch(`/api/data?rows=${row_count}`);
+        let res_value = await res.json();
+        gridApi!.setGridOption("rowData", res_value);
+        gridApi.hideOverlay();
+    }
 </script>
 
 <div>
@@ -515,20 +548,24 @@
             </option>
         {/each}
     </select>
-
+    <select bind:value={row_count} on:change={onChange}>
+        <option value={100}> 100 </option>
+        <option value={1000}> 1000 </option>
+        <option value={10000}> 10000 </option>
+        <option value={100000}> 100000 </option>
+    </select>
     <div id="myGrid" style="height: 92vh; width:100%;" class={theme} />
 </div>
 
 <style>
-    .dropdown{
+    .dropdown {
         float: right;
         margin-top: -35px;
         background: #222628;
-        border-color: #68686E !important;
+        border-color: #68686e !important;
         color: #fff;
         border-radius: 3px;
         border: solid 1px;
         outline: none;
     }
-
 </style>

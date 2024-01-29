@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Row {
+  id Int @id @default(autoincrement())
+  name String
+  language String
+  country String
+  game_name String
+  bought Boolean
+  bank_balance Int
+  rating Int
+  total_winnings Int
+  jan Int
+  feb Int
+  mar Int
+  apr Int
+  may Int
+  jun Int
+  jul Int
+  aug Int
+  sep Int
+  oct Int
+  nov Int
+  dec Int
+
+}
