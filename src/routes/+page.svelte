@@ -10,16 +10,16 @@
     import "ag-grid-community/styles/ag-theme-material.css";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
-    let theme = 'ag-theme-alpine-dark';
+    let theme = "ag-theme-alpine-dark";
     let themes = [
-        'ag-theme-alpine-dark',
-        'ag-theme-balham-dark',
-        'ag-theme-quartz-dark',
-        'ag-theme-alpine',
-        'ag-theme-balham',
-        'ag-theme-quartz',
-        'ag-theme-material',
-    ]
+        "ag-theme-alpine-dark",
+        "ag-theme-balham-dark",
+        "ag-theme-quartz-dark",
+        "ag-theme-alpine",
+        "ag-theme-balham",
+        "ag-theme-quartz",
+        "ag-theme-material",
+    ];
     function currencyFormatter(params) {
         if (
             params.value !== undefined &&
@@ -100,8 +100,7 @@
         if (params.value === "true") {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
         } else if (params.value === "(Select All)") {
-
-        return `(Select All)`;
+            return `(Select All)`;
         }
         return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
@@ -328,7 +327,7 @@
                         filter: true,
                         filterParams: {
                             values: languages,
-                        }
+                        },
                     },
                     {
                         field: "Country",
@@ -344,7 +343,7 @@
                         filterParams: {
                             values: country_names,
                             cellRenderer: countryFlagRenderer,
-                        }
+                        },
                     },
                 ],
                 enableRowGroup: true,
@@ -371,7 +370,7 @@
                         filter: true,
                         filterParams: {
                             cellRenderer: booleanTickFilter,
-                        }
+                        },
                     },
                 ],
                 enableRowGroup: true,
@@ -397,7 +396,7 @@
                 filter: true,
                 filterParams: {
                     cellRenderer: starRendererFilter,
-                }
+                },
             },
             {
                 field: "Total_winnings",
@@ -506,20 +505,30 @@
         }
         grid = createGrid(gridEl, gridOptions);
     });
-
-    function handleSubmit() {
-
-    }
 </script>
 
 <div>
-        <select bind:value={theme} >
-            {#each themes as theme}
-                <option value={theme}>
-                    {theme}
-                </option>
-            {/each}
-        </select>
+    <select class="dropdown" bind:value={theme}>
+        {#each themes as theme}
+            <option value={theme}>
+                {theme}
+            </option>
+        {/each}
+    </select>
 
     <div id="myGrid" style="height: 92vh; width:100%;" class={theme} />
 </div>
+
+<style>
+    .dropdown{
+        float: right;
+        margin-top: -35px;
+        background: #222628;
+        border-color: #68686E !important;
+        color: #fff;
+        border-radius: 3px;
+        border: solid 1px;
+        outline: none;
+    }
+
+</style>
