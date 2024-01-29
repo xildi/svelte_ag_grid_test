@@ -425,10 +425,10 @@
     });
 </script>
 
-<div style="height: 900px;">
+<div >
     <div
         id="myGrid"
-        style="height: 100%; width:100%;"
+        style="height: 99vh; width:100%;"
         class="ag-theme-alpine-dark"
     />
 </div>
