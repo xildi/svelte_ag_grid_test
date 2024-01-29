@@ -419,7 +419,7 @@
     });
 </script>
 
-<div style="height: 1000px;">
+<div style="height: 800px;">
     <div
         id="myGrid"
         style="height: 100%; width:100%;"
