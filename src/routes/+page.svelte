@@ -266,7 +266,7 @@
             marryChildren: true,
         },
         enableRangeSelection: true,
-        enableRangeHandle: true,
+        enableFillHandle: true,
         rowGroupPanelShow: "always",
         columnDefs: [
             {
