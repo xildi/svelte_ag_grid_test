@@ -9,14 +9,12 @@
     export let data: PageData;
 
     function currencyFormatter(params) {
-        if (!params.value.includes("CHF ")){
-        return params.value == null
-            ? ""
-            : "CHF " + numberWithCommas(params.value);
+        if (!params.value.includes("CHF ")) {
+            return params.value == null
+                ? ""
+                : "CHF " + numberWithCommas(params.value);
         }
-        return params.value == null
-            ? ""
-            : numberWithCommas(params.value)
+        return params.value == null ? "" : numberWithCommas(params.value);
     }
 
     function numberWithCommas(x) {
@@ -249,7 +247,7 @@
                 {
                     statusPanel: "agAggregationComponent",
                     align: "right",
-                }
+                },
             ],
         },
         sideBar: true,
@@ -280,6 +278,7 @@
                         cellEditorParams: {
                             values: languages,
                         },
+                        enableRowGroup: true,
                     },
                     {
                         field: "Country",
@@ -290,8 +289,10 @@
                             cellRenderer: countryFlagRenderer,
                         },
                         cellRenderer: countryFlagRenderer,
+                        enableRowGroup: true,
                     },
                 ],
+                enableRowGroup: true,
             },
             {
                 headerName: "Game of Choice",
@@ -303,6 +304,7 @@
                         cellEditorParams: {
                             values: country_names,
                         },
+                        enableRowGroup: true,
                     },
                     {
                         field: "Bought",
@@ -310,8 +312,10 @@
                         type: "booleanType",
                         cellRenderer: booleanTick,
                         cellStyle: { "text-align": "center" },
+                        enableRowGroup: true,
                     },
                 ],
+                enableRowGroup: true,
             },
             {
                 headerName: "Performance",
@@ -321,19 +325,23 @@
                         headerName: "Bank Balance",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                 ],
+                enableRowGroup: true,
             },
             {
                 field: "Rating",
                 headerName: "Rating",
                 cellRenderer: starRenderer,
+                enableRowGroup: true,
             },
             {
                 field: "Total_winnings",
                 headerName: "Total Winnings",
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
+                enableRowGroup: true,
             },
             {
                 headerName: "Montly Breakdown",
@@ -343,72 +351,84 @@
                         headerName: "Jan",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Feb",
                         headerName: "Feb",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Mar",
                         headerName: "Mar",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Apr",
                         headerName: "Apr",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "May",
                         headerName: "May",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Jun",
                         headerName: "Jun",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Jul",
                         headerName: "Jul",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Aug",
                         headerName: "Aug",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Sep",
                         headerName: "Sep",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Oct",
                         headerName: "Oct",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Nov",
                         headerName: "Nov",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                     {
                         field: "Dec",
                         headerName: "Dec",
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
+                        enableRowGroup: true,
                     },
                 ],
             },
@@ -425,7 +445,7 @@
     });
 </script>
 
-<div >
+<div>
     <div
         id="myGrid"
         style="height: 99vh; width:100%;"
