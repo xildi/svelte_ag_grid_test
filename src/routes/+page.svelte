@@ -9,7 +9,7 @@
     export let data: PageData;
 
     function currencyFormatter(params) {
-        if (!params.value.includes("CHF ")) {
+        if (params.value !== undefined && params.value !== null && !params.value.includes("CHF ")) {
             return params.value == null
                 ? ""
                 : "CHF " + numberWithCommas(params.value);
@@ -270,7 +270,7 @@
             {
                 headerName: "Participant",
                 children: [
-                    { field: "Name", headerName: "Name" },
+                    { field: "Name", headerName: "Name", enableRowGroup: true },
                     {
                         field: "Language",
                         headerName: "Language",
