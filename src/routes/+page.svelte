@@ -302,7 +302,7 @@
             editable: true,
             filter: "agTextColumnFilter",
             minWidth: 150,
-            pivot: true,
+            enablePivot:true,
             floatingFilter: true,
         },
         defaultColGroupDef: {
@@ -315,7 +315,7 @@
             {
                 headerName: "Participant",
                 children: [
-                    { field: "Name", headerName: "Name", enableRowGroup: true },
+                    { field: "Name", headerName: "Name", enableRowGroup: true, },
                     {
                         field: "Language",
                         headerName: "Language",
