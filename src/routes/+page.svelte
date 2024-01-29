@@ -9,7 +9,11 @@
     export let data: PageData;
 
     function currencyFormatter(params) {
-        if (params.value !== undefined && params.value !== null && !params.value.includes("CHF ")) {
+        if (
+            params.value !== undefined &&
+            params.value !== null &&
+            !params.value.includes("CHF ")
+        ) {
             return params.value == null
                 ? ""
                 : "CHF " + numberWithCommas(params.value);
@@ -48,11 +52,18 @@
             </svg>`;
     }
     function countryFlagRenderer(params) {
-        let flag_code = countries.find((value) => value.name === params.value);
-        if (flag_code !== undefined) {
-            return `<span><img src="img/flags/${flag_code.code}.webp" width="15" height="10" /> ${params.value}</span>`;
+        if (params !== undefined && params !== null) {
+            let flag_code = countries.find(
+                (value) => value.name === params.value,
+            );
+            if (flag_code !== undefined && flag_code !== null) {
+                return `<span><img src="img/flags/${flag_code.code}.webp" width="15" height="10" /> ${params.value}</span>`;
+            }
+            if (params.value !== undefined && params.value !== null) {
+                return `<span>${params.value}</span>`;
+            }
         }
-        return `<span>${params.value}</span>`;
+        return `<span/>`;
     }
     function booleanTick(params) {
         if (params.value === "true") {
