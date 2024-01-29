@@ -9,9 +9,14 @@
     export let data: PageData;
 
     function currencyFormatter(params) {
+        if (!params.value.includes("CHF ")){
         return params.value == null
             ? ""
-            : "Fr. " + numberWithCommas(params.value);
+            : "CHF " + numberWithCommas(params.value);
+        }
+        return params.value == null
+            ? ""
+            : numberWithCommas(params.value)
     }
 
     function numberWithCommas(x) {
@@ -261,6 +266,7 @@
             marryChildren: true,
         },
         enableRangeSelection: true,
+        enableRangeHandle: true,
         rowGroupPanelShow: "always",
         columnDefs: [
             {
@@ -419,7 +425,7 @@
     });
 </script>
 
-<div style="height: 800px;">
+<div style="height: 900px;">
     <div
         id="myGrid"
         style="height: 100%; width:100%;"
