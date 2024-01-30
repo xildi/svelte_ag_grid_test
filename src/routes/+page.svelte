@@ -579,7 +579,7 @@
         </select>
     </div>
 
-    <div id="myGrid" style="height: 95vh; width:100%;" class={theme} />
+    <div id="myGrid" style="height: 94vh; width:100%;" class={theme} />
 </div>
 
 <style>
