@@ -40,12 +40,12 @@
     let theme = "ag-theme-alpine-dark";
     let themes = [
         { name: "Alpine Dark", key: "ag-theme-alpine-dark" },
-        {name: "Balham Dark", key: "ag-theme-balham-dark"},
-        {name: "Quartz Dark", key:"ag-theme-quartz-dark"},
-        {name: "Alpine", key: "ag-theme-alpine"},
-        {name: "Balham", key: "ag-theme-balham"},
-        {name: "Quartz", key: "ag-theme-quartz"},
-        {name: "Material", key: "ag-theme-material"},
+        { name: "Balham Dark", key: "ag-theme-balham-dark" },
+        { name: "Quartz Dark", key: "ag-theme-quartz-dark" },
+        { name: "Alpine", key: "ag-theme-alpine" },
+        { name: "Balham", key: "ag-theme-balham" },
+        { name: "Quartz", key: "ag-theme-quartz" },
+        { name: "Material", key: "ag-theme-material" },
     ];
     function currencyFormatter(params) {
         if (params.value !== undefined && params.value !== null) {
@@ -545,13 +545,6 @@
 
 <div>
     <div class="dropdown_container">
-        <select class="dropdown pos" bind:value={theme}>
-            {#each themes as theme}
-                <option value={theme.key}>
-                    {theme.name}
-                </option>
-            {/each}
-        </select>
         <select
             class="dropdown pos"
             bind:value={row_count}
@@ -562,6 +555,13 @@
             <option value={10000}> 10000 </option>
             <option value={50000}> 50000 </option>
             <option value={100000}> 100000 </option>
+        </select>
+        <select class="dropdown pos" bind:value={theme}>
+            {#each themes as theme}
+                <option value={theme.key}>
+                    {theme.name}
+                </option>
+            {/each}
         </select>
     </div>
 
@@ -577,7 +577,6 @@
         border: solid 1px;
         outline: none;
         font-size: 13px;
-        
     }
     .dropdown_container {
         float: right;
@@ -586,7 +585,7 @@
     .pos {
         flex: auto;
         padding-left: 17px;
-        padding-right:17px;
+        padding-right: 17px;
         height: 42px;
     }
 </style>
