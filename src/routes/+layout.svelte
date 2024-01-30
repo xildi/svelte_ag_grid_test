@@ -2,12 +2,7 @@
 </script>
 
 <div id="content">
-    <img
-    height="50vh"
-    src="/img/Logo_dunkel.svg"
-    class="attachment-full size-full wp-image-27"
-    alt="Xildi Logo - More than numbers"
-/>
+   
     <div id="page">
         <slot />
     </div>
@@ -19,7 +14,7 @@
         background: #222628;
     }
     #content {
-        height: 94vh;
+        height: 98vh;
     }
     #page {
         height: 100%;

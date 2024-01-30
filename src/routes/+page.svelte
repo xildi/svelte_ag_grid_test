@@ -8,8 +8,15 @@
     import "ag-grid-community/styles/ag-theme-alpine.css";
     import "ag-grid-community/styles/ag-theme-quartz.css";
     import "ag-grid-community/styles/ag-theme-material.css";
-    import { LicenseManager } from "ag-grid-enterprise";
+    import { GridChartsModule } from "@ag-grid-enterprise/charts";
+    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+    import { LicenseManager, ModuleRegistry } from "ag-grid-enterprise";
     export let data: PageData;
+
+    ModuleRegistry.registerModules([
+        ClientSideRowModelModule,
+        GridChartsModule,
+    ]);
 
     interface IRow {
         id: number;
@@ -330,6 +337,7 @@
         defaultColGroupDef: {
             marryChildren: true,
         },
+        enableCharts: true,
         enableRangeSelection: true,
         enableFillHandle: true,
         rowGroupPanelShow: "always",
@@ -545,6 +553,12 @@
 
 <div>
     <div class="dropdown_container">
+        <img
+            height="50vh"
+            src="/img/Logo_dunkel.svg"
+            class="attachment-full size-full wp-image-27 left"
+            alt="Xildi Logo - More than numbers"
+        />
         <select
             class="dropdown pos"
             bind:value={row_count}
@@ -565,7 +579,7 @@
         </select>
     </div>
 
-    <div id="myGrid" style="height: 92vh; width:100%;" class={theme} />
+    <div id="myGrid" style="height: 95vh; width:100%;" class={theme} />
 </div>
 
 <style>
@@ -579,13 +593,15 @@
         font-size: 13px;
     }
     .dropdown_container {
-        float: right;
-        margin-top: -50px;
+        align-items: center;
     }
     .pos {
-        flex: auto;
+        float: inline-end;
         padding-left: 17px;
         padding-right: 17px;
         height: 42px;
+    }
+    .left {
+        float: auto;
     }
 </style>
