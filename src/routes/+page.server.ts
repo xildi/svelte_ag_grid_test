@@ -5,7 +5,13 @@ import prisma from "$lib/prisma";
 
 export const load = (async () => {
 	const response = await prisma.row.findMany({take: 100})
+	const max_value = await prisma.row.aggregate({
+		_max: {
+			total_winnings: true
+		}
+	})
 	return {
 		input_list: response,
+		max_winnings: max_value,
 	};
 }) satisfies PageServerLoad;

@@ -22,8 +22,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@ag-grid-community/client-side-row-model": "^31.0.3",
-		"@ag-grid-enterprise/charts": "^31.0.3",
 		"ag-grid-community": "^31.0.3",
 		"ag-grid-enterprise": "^31.0.3"
 	}

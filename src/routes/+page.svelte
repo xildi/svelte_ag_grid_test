@@ -1,22 +1,23 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { createGrid } from "ag-grid-community";
-    import type { GridApi, GridOptions } from "ag-grid-community";
+    import {
+        createGrid,
+        type BarSparklineOptions,
+        type GridApi,
+        type GridOptions,
+        type LabelFormatterParams,
+        type ValueGetterParams,
+    } from "ag-grid-community";
+    
     import type { PageData } from "./$types";
     import "ag-grid-community/styles/ag-grid.css";
     import "ag-grid-community/styles/ag-theme-balham.css";
     import "ag-grid-community/styles/ag-theme-alpine.css";
     import "ag-grid-community/styles/ag-theme-quartz.css";
     import "ag-grid-community/styles/ag-theme-material.css";
-    import { GridChartsModule } from "@ag-grid-enterprise/charts";
-    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-    import { LicenseManager, ModuleRegistry } from "ag-grid-enterprise";
+    import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
 
-    ModuleRegistry.registerModules([
-        ClientSideRowModelModule,
-        GridChartsModule,
-    ]);
 
     interface IRow {
         id: number;
@@ -348,6 +349,7 @@
                 width: 30,
                 filter: false,
                 floatingFilter: false,
+                editable: false,
             },
             {
                 headerName: "Participant",
@@ -400,7 +402,6 @@
                     {
                         field: "bought",
                         headerName: "Bought",
-                        type: "booleanType",
                         cellRenderer: booleanTick,
                         cellStyle: { "text-align": "center" },
                         enableRowGroup: true,
@@ -441,6 +442,36 @@
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 enableRowGroup: true,
+            },
+            {
+                field: "total_winnings",
+                cellRenderer: "agSparklineCellRenderer",
+                valueGetter: (params: ValueGetterParams) => {
+                    const formattedData: any = [params.data.total_winnings];
+                    return formattedData;
+                },
+                cellRendererParams: {
+                    sparklineOptions: {
+                        // Sparkline customisation goes here.
+                        type: "bar",
+                        fill: "#5470c6",
+                        stroke: "#91cc75",
+                        highlightStyle: {
+                            fill: "#fac858",
+                        },
+                        valueAxisDomain: [0, data.max_winnings._max.total_winnings],
+                        paddingOuter: 0,
+                        padding: {
+                            top: 0,
+                            bottom: 0,
+                        },
+
+                        axis: {
+                            strokeWidth: 0,
+                        },
+                       
+                    },
+                },
             },
             {
                 headerName: "Montly Breakdown",
@@ -579,7 +610,7 @@
         </select>
     </div>
 
-    <div id="myGrid" style="height: 94vh; width:100%;" class={theme} />
+    <div id="myGrid" style="height: 93vh; width:100%;" class={theme} />
 </div>
 
 <style>
