@@ -130,13 +130,13 @@
         };
     };
     function booleanTick(params) {
-        if (params.value === "true") {
+        if (params.value == true) {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
         }
         return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
     function booleanTickFilter(params) {
-        if (params.value === "true") {
+        if (params.value == true) {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
         } else if (params.value === "(Select All)") {
             return `(Select All)`;
