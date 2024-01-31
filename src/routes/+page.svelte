@@ -8,7 +8,7 @@
         type LabelFormatterParams,
         type ValueGetterParams,
     } from "ag-grid-community";
-    
+
     import type { PageData } from "./$types";
     import "ag-grid-community/styles/ag-grid.css";
     import "ag-grid-community/styles/ag-theme-balham.css";
@@ -17,7 +17,6 @@
     import "ag-grid-community/styles/ag-theme-material.css";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
-
 
     interface IRow {
         id: number;
@@ -121,6 +120,15 @@
         }
         return `<span/>`;
     }
+
+    const markerFormatter = (params) => {
+        const { min, max } = params;
+        return {
+            size: min || max ? 5 : 3,
+            fill: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
+            stroke: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
+        };
+    };
     function booleanTick(params) {
         if (params.value === "true") {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
@@ -444,7 +452,6 @@
                 enableRowGroup: true,
             },
             {
-                field: "total_winnings",
                 cellRenderer: "agSparklineCellRenderer",
                 valueGetter: (params: ValueGetterParams) => {
                     const formattedData: any = [params.data.total_winnings];
@@ -459,7 +466,10 @@
                         highlightStyle: {
                             fill: "#fac858",
                         },
-                        valueAxisDomain: [0, data.max_winnings._max.total_winnings],
+                        valueAxisDomain: [
+                            0,
+                            data.max_winnings._max.total_winnings,
+                        ],
                         paddingOuter: 0,
                         padding: {
                             top: 0,
@@ -469,7 +479,6 @@
                         axis: {
                             strokeWidth: 0,
                         },
-                       
                     },
                 },
             },
@@ -559,6 +568,61 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                    },
+                    {
+                        headerName: "chart",
+                        cellRenderer: "agSparklineCellRenderer",
+                        valueGetter: (params: ValueGetterParams) => {
+                            const formattedData: any = [
+                                params.data.jan,
+                                params.data.feb,
+                                params.data.mar,
+                                params.data.apr,
+                                params.data.may,
+                                params.data.jun,
+                                params.data.jul,
+                                params.data.aug,
+                                params.data.sep,
+                                params.data.oct,
+                                params.data.nov,
+                                params.data.dec,
+                            ];
+                            return formattedData;
+                        },
+                        cellRendererParams: {
+                            sparklineOptions: {
+                                type: "column",
+                            },
+                        },
+                    },
+                    {
+                        headerName: "chart",
+                        cellRenderer: "agSparklineCellRenderer",
+                        valueGetter: (params: ValueGetterParams) => {
+                            const formattedData: any = [
+                                params.data.jan,
+                                params.data.feb,
+                                params.data.mar,
+                                params.data.apr,
+                                params.data.may,
+                                params.data.jun,
+                                params.data.jul,
+                                params.data.aug,
+                                params.data.sep,
+                                params.data.oct,
+                                params.data.nov,
+                                params.data.dec,
+                            ];
+                            return formattedData;
+                        },
+                        cellRendererParams: {
+                            sparklineOptions: {
+                                type: "area",
+                                marker: {
+                                    formatter: markerFormatter, // add formatter to marker options
+                                },
+                            },
+                        },
                     },
                 ],
             },
