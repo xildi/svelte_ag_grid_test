@@ -519,7 +519,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
-
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -528,6 +528,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -536,6 +537,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -544,6 +546,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -552,6 +555,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -560,6 +564,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -568,6 +573,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -576,6 +582,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -584,6 +591,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -592,6 +600,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -600,6 +609,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        aggFunc: "sum",
                         minWidth: 120,
                     },
                     {
@@ -609,9 +619,9 @@
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                         minWidth: 120,
+                        aggFunc: "sum",
                     },
                     {
-                        headerName: "chart",
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
@@ -644,7 +654,6 @@
                         minWidth: 150,
                     },
                     {
-                        headerName: "chart",
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
@@ -767,5 +776,6 @@
         --ag-alpine-dark-active-color: #76cbed !important;
         --ag-balham-active-color: #76cbed !important;
         --ag-checkbox-checked-color: #76cbed !important;
+        --ag-checkbox-input: #76cbed !important;
     }
 </style>
