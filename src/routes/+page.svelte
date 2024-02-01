@@ -108,6 +108,7 @@
     }
 
     const tooltipRenderer = (params) => {
+        
         return {
             content: params.context.data.total_winnings,
         };
@@ -477,8 +478,8 @@
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
                                 0,
-                                params.data.total_winnings,
-                                0,
+                                (data.max_winnings._max.total_winnings != undefined ? data.max_winnings._max.total_winnings : 0),
+                                0
                             ];
                             return formattedData;
                         },
@@ -494,7 +495,7 @@
                                 },
                                 valueAxisDomain: [
                                     0,
-                                    data.max_winnings._max.total_winnings,
+                                    (data.max_winnings._max.total_winnings != undefined ? data.max_winnings._max.total_winnings : 0)
                                 ],
                                 //formatter: barFormatter,
                                 axis: {
