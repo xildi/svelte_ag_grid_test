@@ -461,8 +461,9 @@
                     sparklineOptions: {
                         // Sparkline customisation goes here.
                         type: "bar",
-                        fill: "#5470c6",
-                        stroke: "#91cc75",
+                        fill: "#76cbed",
+                        strokeWidth: 0,
+
                         highlightStyle: {
                             fill: "#fac858",
                         },
@@ -472,8 +473,8 @@
                         ],
                         paddingOuter: 0,
                         padding: {
-                            top: 0,
-                            bottom: 0,
+                            top: 12,
+                            bottom: 12,
                         },
 
                         axis: {
@@ -592,6 +593,12 @@
                         cellRendererParams: {
                             sparklineOptions: {
                                 type: "column",
+
+                                fill: "#76cbed",
+                                axis: {
+                                    strokeWidth: 2,
+                                },
+                                paddingInner: 0.3,
                             },
                         },
                     },
@@ -618,6 +625,12 @@
                         cellRendererParams: {
                             sparklineOptions: {
                                 type: "area",
+                                line: {
+                                    stroke: "#76cbed",
+                                },
+                                axis: {
+                                    strokeWidth: 2,
+                                },
                                 marker: {
                                     formatter: markerFormatter, // add formatter to marker options
                                 },
@@ -699,4 +712,5 @@
     .left {
         float: auto;
     }
+  
 </style>
