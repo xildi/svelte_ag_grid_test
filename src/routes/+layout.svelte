@@ -1,13 +1,11 @@
-<script lang="ts">    
+<script lang="ts">
 </script>
 
 <div id="content">
-   
     <div id="page">
         <slot />
     </div>
 </div>
-
 
 <style>
     :global(body, html) {

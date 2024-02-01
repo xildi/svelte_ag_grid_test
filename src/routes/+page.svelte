@@ -106,6 +106,13 @@
                 </g>
             </svg>`;
     }
+
+    const tooltipRenderer = (params) => {
+        return {
+            content: params.context.data.total_winnings,
+        };
+    };
+
     function countryFlagRenderer(params) {
         if (params !== undefined && params !== null) {
             let flag_code = countries.find(
@@ -319,6 +326,7 @@
         "YINSH",
         "ZERTZ",
     ];
+
     const gridOptions: GridOptions = {
         statusBar: {
             statusPanels: [
@@ -339,7 +347,6 @@
             resizable: true,
             editable: true,
             filter: "agTextColumnFilter",
-            minWidth: 150,
             enablePivot: true,
             floatingFilter: true,
         },
@@ -354,7 +361,7 @@
             {
                 field: "id",
                 headerName: "ID",
-                width: 30,
+                minWidth: 70,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -362,7 +369,12 @@
             {
                 headerName: "Participant",
                 children: [
-                    { field: "name", headerName: "Name", enableRowGroup: true },
+                    {
+                        field: "name",
+                        headerName: "Name",
+                        enableRowGroup: true,
+                        minWidth: 150,
+                    },
                     {
                         field: "language",
                         headerName: "Language",
@@ -375,6 +387,7 @@
                         filterParams: {
                             values: languages,
                         },
+                        minWidth: 150,
                     },
                     {
                         field: "country",
@@ -391,6 +404,7 @@
                             values: country_names,
                             cellRenderer: countryFlagRenderer,
                         },
+                        minWidth: 150,
                     },
                 ],
                 enableRowGroup: true,
@@ -406,6 +420,7 @@
                             values: country_names,
                         },
                         enableRowGroup: true,
+                        minWidth: 150,
                     },
                     {
                         field: "bought",
@@ -417,6 +432,7 @@
                         filterParams: {
                             cellRenderer: booleanTickFilter,
                         },
+                        minWidth: 100,
                     },
                 ],
                 enableRowGroup: true,
@@ -430,6 +446,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 150,
                     },
                 ],
                 enableRowGroup: true,
@@ -443,46 +460,56 @@
                 filterParams: {
                     cellRenderer: starRendererFilter,
                 },
+                minWidth: 120,
             },
             {
-                field: "total_winnings",
                 headerName: "Total Winnings",
-                type: "numericColumn",
-                valueFormatter: currencyFormatter,
                 enableRowGroup: true,
-            },
-            {
-                cellRenderer: "agSparklineCellRenderer",
-                valueGetter: (params: ValueGetterParams) => {
-                    const formattedData: any = [params.data.total_winnings];
-                    return formattedData;
-                },
-                cellRendererParams: {
-                    sparklineOptions: {
-                        // Sparkline customisation goes here.
-                        type: "bar",
-                        fill: "#76cbed",
-                        strokeWidth: 0,
-
-                        highlightStyle: {
-                            fill: "#fac858",
-                        },
-                        valueAxisDomain: [
-                            0,
-                            data.max_winnings._max.total_winnings,
-                        ],
-                        paddingOuter: 0,
-                        padding: {
-                            top: 12,
-                            bottom: 12,
-                        },
-
-                        axis: {
-                            strokeWidth: 0,
-                        },
+                children: [
+                    {
+                        field: "total_winnings",
+                        type: "numericColumn",
+                        valueFormatter: currencyFormatter,
+                        minWidth: 150,
                     },
-                },
+                    {
+                        cellRenderer: "agSparklineCellRenderer",
+                        valueGetter: (params: ValueGetterParams) => {
+                            const formattedData: any = [
+                                0,
+                                params.data.total_winnings,
+                                0,
+                            ];
+                            return formattedData;
+                        },
+                        cellRendererParams: {
+                            sparklineOptions: {
+                                // Sparkline customisation goes here.
+                                type: "bar",
+                                fill: "#76cbed",
+                                strokeWidth: 0,
+
+                                highlightStyle: {
+                                    fill: "#fac858",
+                                },
+                                valueAxisDomain: [
+                                    0,
+                                    data.max_winnings._max.total_winnings,
+                                ],
+                                //formatter: barFormatter,
+                                axis: {
+                                    strokeWidth: 0,
+                                },
+                                tooltip: {
+                                    renderer: tooltipRenderer,
+                                },
+                            },
+                        },
+                        minWidth: 150,
+                    },
+                ],
             },
+
             {
                 headerName: "Montly Breakdown",
                 children: [
@@ -492,6 +519,8 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+
+                        minWidth: 120,
                     },
                     {
                         field: "feb",
@@ -499,6 +528,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "mar",
@@ -506,6 +536,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "apr",
@@ -513,6 +544,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "may",
@@ -520,6 +552,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "jun",
@@ -527,6 +560,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "jul",
@@ -534,6 +568,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "aug",
@@ -541,6 +576,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "sep",
@@ -548,6 +584,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "oct",
@@ -555,6 +592,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "nov",
@@ -562,6 +600,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         field: "dec",
@@ -569,6 +608,7 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
+                        minWidth: 120,
                     },
                     {
                         headerName: "chart",
@@ -601,6 +641,7 @@
                                 paddingInner: 0.3,
                             },
                         },
+                        minWidth: 150,
                     },
                     {
                         headerName: "chart",
@@ -636,12 +677,13 @@
                                 },
                             },
                         },
+                        minWidth: 150,
                     },
                 ],
             },
         ],
     };
-    let row_count: number;
+    let row_count: number = 100;
     onMount(() => {
         const gridEl = document.getElementById("myGrid");
         if (!gridEl) {
@@ -712,5 +754,18 @@
     .left {
         float: auto;
     }
-  
+    .ag-theme-alpine-dark,
+    .ag-theme-alpine,
+    .ag-theme-balham-dark,
+    .ag-theme-balham,
+    .ag-theme-quartz-dark,
+    .ag-theme-quartz,
+    .ag-theme-material {
+        --ag-active-color: #76cbed !important;
+        --ag-alpine-active-color: #76cbed !important;
+        --ag-alpine-active-color: #76cbed !important;
+        --ag-alpine-dark-active-color: #76cbed !important;
+        --ag-balham-active-color: #76cbed !important;
+        --ag-checkbox-checked-color: #76cbed !important;
+    }
 </style>
