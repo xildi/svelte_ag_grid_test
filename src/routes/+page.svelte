@@ -521,6 +521,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "feb",
@@ -530,6 +531,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "mar",
@@ -539,6 +541,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "apr",
@@ -548,6 +551,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "may",
@@ -557,6 +561,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "jun",
@@ -565,6 +570,7 @@
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                         aggFunc: "sum",
+                        enableValue: true,
                         minWidth: 120,
                     },
                     {
@@ -574,6 +580,7 @@
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
                         aggFunc: "sum",
+                        enableValue: true,
                         minWidth: 120,
                     },
                     {
@@ -584,6 +591,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "sep",
@@ -591,8 +599,9 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
-                        aggFunc: "sum",
+                        aggFunc: "avg",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "oct",
@@ -600,8 +609,9 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
-                        aggFunc: "sum",
+                        aggFunc: "min",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "nov",
@@ -609,8 +619,9 @@
                         type: "numericColumn",
                         valueFormatter: currencyFormatter,
                         enableRowGroup: true,
-                        aggFunc: "sum",
+                        aggFunc: "max",
                         minWidth: 120,
+                        enableValue: true
                     },
                     {
                         field: "dec",
@@ -620,6 +631,7 @@
                         enableRowGroup: true,
                         minWidth: 120,
                         aggFunc: "sum",
+                        enableValue: true
                     },
                     {
                         cellRenderer: "agSparklineCellRenderer",
