@@ -7,6 +7,11 @@
         type GridOptions,
         type LabelFormatterParams,
         type ValueGetterParams,
+        type ICellRendererParams,
+        type ValueFormatterParams,
+        type TooltipRendererParams,
+        type SparklineMarkerOptions,
+        type MarkerFormatterParams,
     } from "ag-grid-community";
 
     import type { PageData } from "./$types";
@@ -56,7 +61,7 @@
         { name: "Quartz", key: "ag-theme-quartz" },
         { name: "Material", key: "ag-theme-material" },
     ];
-    function currencyFormatter(params) {
+    function currencyFormatter(params: ValueFormatterParams) {
         if (params.value !== undefined && params.value !== null) {
             return params.value == null
                 ? ""
@@ -65,7 +70,7 @@
         return params.value == null ? "" : numberWithCommas(params.value);
     }
 
-    function numberWithCommas(x) {
+    function numberWithCommas(x: string | number | boolean) {
         return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, "'");
     }
 
@@ -73,7 +78,7 @@
         "Using_this_{AG_Charts_and_AG_Grid}_Enterprise_key_{AG-054178}_in_excess_of_the_licence_granted_is_not_permitted___Please_report_misuse_to_legal@ag-grid.com___For_help_with_changing_this_key_please_contact_info@ag-grid.com___{XILDI_AG}_is_granted_a_{Single_Application}_Developer_License_for_the_application_{ic}_only_for_{1}_Front-End_JavaScript_developer___All_Front-End_JavaScript_developers_working_on_{ic}_need_to_be_licensed___{ic}_has_not_been_granted_a_Deployment_License_Add-on___This_key_works_with_{AG_Charts_and_AG_Grid}_Enterprise_versions_released_before_{25_January_2025}____[v3]_[0102]_MTczNzc2MzIwMDAwMA==a76833d54e30f1203cb10fba213f4aaf",
     );
 
-    function starRenderer(params) {
+    function starRenderer(params: ICellRendererParams) {
         if (params !== undefined && params !== null) {
             let res = `<span>`;
             for (let i = 0; i < params.value; i++) {
@@ -83,7 +88,7 @@
             return res;
         }
     }
-    function starRendererFilter(params) {
+    function starRendererFilter(params: ICellRendererParams) {
         if (params.value === "(Select All)") {
             return `<span>(Select All)</span>`;
         }
@@ -113,14 +118,30 @@
             </svg>`;
     }
 
-    const tooltipRenderer = (params) => {
-        return {
-            content: params.context.data.total_winnings,
-        };
+    const tooltipRenderer = (params: TooltipRendererParams) => {
+        if (
+            params !== undefined &&
+            params !== null &&
+            params.context !== undefined &&
+            params.context !== null &&
+            params.context.data !== undefined &&
+            params.context.data !== null &&
+            params.context.data.total_winnings !== undefined &&
+            params.context.data.total_winnings !== null
+        ) {
+            return {
+                content: params.context.data.total_winnings,
+            };
+        }
     };
 
-    function countryFlagRenderer(params) {
-        if (params !== undefined && params !== null) {
+    function countryFlagRenderer(params: ICellRendererParams) {
+        if (
+            params !== undefined &&
+            params !== null &&
+            params.value !== undefined &&
+            params.value !== null
+        ) {
             let flag_code = countries.find(
                 (value) => value.name === params.value,
             );
@@ -133,7 +154,7 @@
         }
     }
 
-    const markerFormatter = (params) => {
+    const markerFormatter = (params: MarkerFormatterParams) => {
         if (params !== undefined && params !== null) {
             const { min, max } = params;
             return {
@@ -143,20 +164,24 @@
             };
         }
     };
-    function booleanTick(params) {
-        if (params.value == true) {
-            return `<i class="ag-icon ag-icon-tick content-icon"/>`;
-        } else if (params.value == false) {
-            return `<i class="ag-icon ag-icon-cross content-icon"/>`;
+    function booleanTick(params: ICellRendererParams) {
+        if (params !== undefined && params !== null) {
+            if (params.value == true) {
+                return `<i class="ag-icon ag-icon-tick content-icon"/>`;
+            } else if (params.value == false) {
+                return `<i class="ag-icon ag-icon-cross content-icon"/>`;
+            }
         }
     }
-    function booleanTickFilter(params) {
-        if (params.value == true) {
-            return `<i class="ag-icon ag-icon-tick content-icon"/>`;
-        } else if (params.value === "(Select All)") {
-            return `(Select All)`;
-        } else if (params.value == false) {
-            return `<i class="ag-icon ag-icon-cross content-icon"/>`;
+    function booleanTickFilter(params: ICellRendererParams) {
+        if (params !== undefined && params !== null) {
+            if (params.value == true) {
+                return `<i class="ag-icon ag-icon-tick content-icon"/>`;
+            } else if (params.value === "(Select All)") {
+                return `(Select All)`;
+            } else if (params.value == false) {
+                return `<i class="ag-icon ag-icon-cross content-icon"/>`;
+            }
         }
     }
     let countries = [
@@ -358,6 +383,7 @@
             filter: "agTextColumnFilter",
             enablePivot: true,
             floatingFilter: true,
+            minWidth: 150,
         },
         defaultColGroupDef: {
             marryChildren: true,
@@ -486,7 +512,10 @@
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
                                 0,
-                                params.data !== undefined && params.data !== null ? params.data.total_winnings : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.total_winnings
+                                    : 0,
                                 0,
                             ];
                             return formattedData;
@@ -501,10 +530,7 @@
                                 highlightStyle: {
                                     fill: "#fac858",
                                 },
-                                valueAxisDomain: [
-                                    0,
-                                    max_winnings,
-                                ],
+                                valueAxisDomain: [0, max_winnings],
                                 //formatter: barFormatter,
                                 axis: {
                                     strokeWidth: 0,
@@ -646,18 +672,18 @@
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
-                                params.data.jan,
-                                params.data.feb,
-                                params.data.mar,
-                                params.data.apr,
-                                params.data.may,
-                                params.data.jun,
-                                params.data.jul,
-                                params.data.aug,
-                                params.data.sep,
-                                params.data.oct,
-                                params.data.nov,
-                                params.data.dec,
+                                params.data !== undefined && params.data !== null ? params.data.jan : 0,
+                                params.data !== undefined && params.data !== null ? params.data.feb : 0,
+                                params.data !== undefined && params.data !== null ? params.data.mar : 0,
+                                params.data !== undefined && params.data !== null ? params.data.apr : 0,
+                                params.data !== undefined && params.data !== null ? params.data.may : 0,
+                                params.data !== undefined && params.data !== null ? params.data.jun : 0,
+                                params.data !== undefined && params.data !== null ? params.data.jul : 0,
+                                params.data !== undefined && params.data !== null ? params.data.aug : 0,
+                                params.data !== undefined && params.data !== null ? params.data.sep : 0,
+                                params.data !== undefined && params.data !== null ? params.data.oct : 0,
+                                params.data !== undefined && params.data !== null ? params.data.nov : 0,
+                                params.data !== undefined && params.data !== null ? params.data.dec : 0,
                             ];
                             return formattedData;
                         },
@@ -678,18 +704,18 @@
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
-                                params.data.jan,
-                                params.data.feb,
-                                params.data.mar,
-                                params.data.apr,
-                                params.data.may,
-                                params.data.jun,
-                                params.data.jul,
-                                params.data.aug,
-                                params.data.sep,
-                                params.data.oct,
-                                params.data.nov,
-                                params.data.dec,
+                                params.data !== undefined && params.data !== null ? params.data.jan : 0,
+                                params.data !== undefined && params.data !== null ? params.data.feb : 0,
+                                params.data !== undefined && params.data !== null ? params.data.mar : 0,
+                                params.data !== undefined && params.data !== null ? params.data.apr : 0,
+                                params.data !== undefined && params.data !== null ? params.data.may : 0,
+                                params.data !== undefined && params.data !== null ? params.data.jun : 0,
+                                params.data !== undefined && params.data !== null ? params.data.jul : 0,
+                                params.data !== undefined && params.data !== null ? params.data.aug : 0,
+                                params.data !== undefined && params.data !== null ? params.data.sep : 0,
+                                params.data !== undefined && params.data !== null ? params.data.oct : 0,
+                                params.data !== undefined && params.data !== null ? params.data.nov : 0,
+                                params.data !== undefined && params.data !== null ? params.data.dec : 0,
                             ];
                             return formattedData;
                         },
@@ -718,10 +744,13 @@
         if (!gridEl) {
             throw new Error("Grid element not found");
         }
-        max_winnings = data.max_winnings._max.total_winnings !== undefined && data.max_winnings._max.total_winnings !== null ? data.max_winnings._max.total_winnings: 1000000;
+        max_winnings =
+            data.max_winnings._max.total_winnings !== undefined &&
+            data.max_winnings._max.total_winnings !== null
+                ? data.max_winnings._max.total_winnings
+                : 1000000;
         gridApi = createGrid(gridEl, gridOptions);
         gridApi.setGridOption("rowData", data.input_list);
-        
     });
     async function onChange() {
         gridApi.showLoadingOverlay();
