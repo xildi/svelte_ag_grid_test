@@ -18,6 +18,8 @@
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
 
+    let max_winnings: number = 1000000;
+    let row_count: number = 100;
     interface IRow {
         id: number;
         name: string;
@@ -72,12 +74,14 @@
     );
 
     function starRenderer(params) {
-        let res = `<span>`;
-        for (let i = 0; i < params.value; i++) {
-            res += starRendererHelper();
+        if (params !== undefined && params !== null) {
+            let res = `<span>`;
+            for (let i = 0; i < params.value; i++) {
+                res += starRendererHelper();
+            }
+            res += `</span>`;
+            return res;
         }
-        res += `</span>`;
-        return res;
     }
     function starRendererFilter(params) {
         if (params.value === "(Select All)") {
@@ -86,12 +90,14 @@
         if (params.value == 0) {
             return `<span>No Stars</span>`;
         }
-        let res = `<span>`;
-        for (let i = 0; i < params.value; i++) {
-            res += starRendererHelper();
+        if (params !== undefined && params !== null) {
+            let res = `<span>`;
+            for (let i = 0; i < params.value; i++) {
+                res += starRendererHelper();
+            }
+            res += `</span>`;
+            return res;
         }
-        res += `</span>`;
-        return res;
     }
     function starRendererHelper() {
         return `<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -108,7 +114,6 @@
     }
 
     const tooltipRenderer = (params) => {
-        
         return {
             content: params.context.data.total_winnings,
         };
@@ -126,30 +131,33 @@
                 return `<span>${params.value}</span>`;
             }
         }
-        return `<span/>`;
     }
 
     const markerFormatter = (params) => {
-        const { min, max } = params;
-        return {
-            size: min || max ? 5 : 3,
-            fill: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
-            stroke: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
-        };
+        if (params !== undefined && params !== null) {
+            const { min, max } = params;
+            return {
+                size: min || max ? 5 : 3,
+                fill: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
+                stroke: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
+            };
+        }
     };
     function booleanTick(params) {
         if (params.value == true) {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
+        } else if (params.value == false) {
+            return `<i class="ag-icon ag-icon-cross content-icon"/>`;
         }
-        return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
     function booleanTickFilter(params) {
         if (params.value == true) {
             return `<i class="ag-icon ag-icon-tick content-icon"/>`;
         } else if (params.value === "(Select All)") {
             return `(Select All)`;
+        } else if (params.value == false) {
+            return `<i class="ag-icon ag-icon-cross content-icon"/>`;
         }
-        return `<i class="ag-icon ag-icon-cross content-icon"/>`;
     }
     let countries = [
         {
@@ -478,8 +486,8 @@
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
                                 0,
-                                (data.max_winnings._max.total_winnings != undefined ? data.max_winnings._max.total_winnings : 0),
-                                0
+                                params.data !== undefined && params.data !== null ? params.data.total_winnings : 0,
+                                0,
                             ];
                             return formattedData;
                         },
@@ -495,7 +503,7 @@
                                 },
                                 valueAxisDomain: [
                                     0,
-                                    (data.max_winnings._max.total_winnings != undefined ? data.max_winnings._max.total_winnings : 0)
+                                    max_winnings,
                                 ],
                                 //formatter: barFormatter,
                                 axis: {
@@ -522,7 +530,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "feb",
@@ -532,7 +540,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "mar",
@@ -542,7 +550,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "apr",
@@ -552,7 +560,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "may",
@@ -562,7 +570,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "jun",
@@ -592,7 +600,7 @@
                         enableRowGroup: true,
                         aggFunc: "sum",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "sep",
@@ -602,7 +610,7 @@
                         enableRowGroup: true,
                         aggFunc: "avg",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "oct",
@@ -612,7 +620,7 @@
                         enableRowGroup: true,
                         aggFunc: "min",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "nov",
@@ -622,7 +630,7 @@
                         enableRowGroup: true,
                         aggFunc: "max",
                         minWidth: 120,
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         field: "dec",
@@ -632,7 +640,7 @@
                         enableRowGroup: true,
                         minWidth: 120,
                         aggFunc: "sum",
-                        enableValue: true
+                        enableValue: true,
                     },
                     {
                         cellRenderer: "agSparklineCellRenderer",
@@ -705,14 +713,15 @@
             },
         ],
     };
-    let row_count: number = 100;
     onMount(() => {
         const gridEl = document.getElementById("myGrid");
         if (!gridEl) {
             throw new Error("Grid element not found");
         }
+        max_winnings = data.max_winnings._max.total_winnings !== undefined && data.max_winnings._max.total_winnings !== null ? data.max_winnings._max.total_winnings: 1000000;
         gridApi = createGrid(gridEl, gridOptions);
         gridApi.setGridOption("rowData", data.input_list);
+        
     });
     async function onChange() {
         gridApi.showLoadingOverlay();
