@@ -15,16 +15,12 @@
     } from "ag-grid-community";
 
     import type { PageData } from "./$types";
-    import "ag-grid-community/styles/ag-grid.css";
-    import "ag-grid-community/styles/ag-theme-balham.css";
-    import "ag-grid-community/styles/ag-theme-alpine.css";
-    import "ag-grid-community/styles/ag-theme-quartz.css";
-    import "ag-grid-community/styles/ag-theme-material.css";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
 
     let max_winnings: number = 1000000;
     let row_count: number = 100;
+
     interface IRow {
         id: number;
         name: string;
@@ -106,7 +102,6 @@
     }
     function starRendererHelper() {
         return `<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
                 <title>star</title>
                 <desc>Created with Sketch.</desc>
                 <defs/>
