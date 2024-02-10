@@ -1,9 +1,12 @@
 <script lang="ts">
   import * as d3 from "d3";
   export let data;
-  let width = 450;
+  export let title;
+  let width = 650;
   let height = 450;
   let margin = 80;
+  const headerX = -300;
+  const headerY = -205;
   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
   let radius = Math.min(width, height) / 2 - margin;
 
@@ -82,11 +85,16 @@
   viewBox="{-width / 2}, {-height / 2}, {width}, {height}"
   style:max-width="100%"
   style:height="auto"
->
+  class=" bg-[#2c2c2c] rounded-lg  ">
+  <g class="header">
+    <text x={headerX} y={headerY} fill="white" font-size="2em">
+      {title}
+    </text>
+  </g>
   <g class="chart-inner">
     {#each data_ready as slice}
       <path d={arc(slice)} fill={color(slice.data.key)} />
-      {#if ((slice.endAngle - slice.startAngle) / (2 * Math.PI)) * 100 > 3}
+      {#if ((slice.endAngle - slice.startAngle) / (2 * Math.PI)) * 100 > 2}
         <!-- Draw polyline -->
         <polyline
           stroke="gray"

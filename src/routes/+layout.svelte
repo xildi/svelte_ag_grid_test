@@ -15,7 +15,7 @@
 
 <style>
     :global(body, html) {
-        background: #222628;
+        background: #1e1e1e;
     }
     #content {
         height: 98vh;

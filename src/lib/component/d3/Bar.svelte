@@ -1,11 +1,15 @@
 <script lang="ts">
     import * as d3 from "d3";
 
-    let width = 450;
+    let width = 650;
     let height = 450;
     let margin = 80;
 
+    const headerX = -50;
+    const headerY = -30;
     export let data: [{ key: string; value: number }];
+    export let title;
+
     // Create scales
     $: xScale = d3
         .scaleBand()
@@ -40,54 +44,62 @@
 
 <svg
     width={width + margin * 2}
-    height={height + margin * 2}
+    height={height + margin * 2}  
     style:max-width="100%"
     style:height="auto"
+    class="bg-[#2c2c2c] rounded-lg"
 >
-    <!-- Render x-axis -->
-    <g transform={`translate(0, ${height})`} class="x-axis">
-        {#each data as d, i}
-            <g
-                transform={`translate(${
-                    xScale(d.key) + xScale.bandwidth() / 2
-                }, 0)`}
-            >
-                <text dy=".71em" y="6" transform="rotate(0)" 
+    <!-- Apply transform to move the graph -->
+    <g transform={`translate(${margin}, ${margin})`}>
+        <!-- Render header text -->
+        <g class="header">
+            <text x={headerX} y={headerY} fill="white" font-size="2em">
+                {title}
+            </text>
+        </g>
+        <!-- Render x-axis -->
+        <g transform={`translate(0, ${height})`} class="x-axis">
+            {#each data as d, i}
+                <g
+                    transform={`translate(${
+                        xScale(d.key) + xScale.bandwidth() / 2
+                    }, 0)`}
                 >
-                    {d.key}
-                </text>
-            </g>
+                    <text dy=".71em" y="6" transform="rotate(0)">
+                        {d.key}
+                    </text>
+                </g>
+            {/each}
+        </g>
+        <line
+            x1="0"
+            y1={height}
+            x2={width}
+            y2={height}
+            stroke="gray"
+            stroke-width="2"
+        />
+        <!-- Render bars -->
+        {#each data as d, i}
+            <rect
+                class="bar"
+                x={xScale(d.key)}
+                y={yScale(d.value)}
+                width={xScale.bandwidth()}
+                height={height - yScale(d.value)}
+                fill={colorScale(d.key)}
+            />
+            <text
+                x={xScale(d.key) + xScale.bandwidth() / 2}
+                y={yScale(d.value) - 5}
+                text-anchor="middle"
+                fill="white"
+                font-size="16px"
+            >
+                {formatValue(d.value)}
+            </text>
         {/each}
     </g>
-    <line
-        x1="0"
-        y1={height}
-        x2={width}
-        y2={height}
-        stroke="gray"
-        stroke-width="2"
-    />
-
-    <!-- Render bars -->
-    {#each data as d, i}
-        <rect
-            class="bar"
-            x={xScale(d.key)}
-            y={yScale(d.value)}
-            width={xScale.bandwidth()}
-            height={height - yScale(d.value)}
-            fill={colorScale(d.key)}
-        />
-        <text
-            x={xScale(d.key) + xScale.bandwidth() / 2}
-            y={yScale(d.value) - 5}
-            text-anchor="middle"
-            fill="white"
-            font-size="16px"
-        >
-            {formatValue(d.value)}
-        </text>
-    {/each}
 </svg>
 
 <style>

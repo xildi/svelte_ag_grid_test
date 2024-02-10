@@ -15,7 +15,7 @@
     import type { PageData } from "./$types";
     import D3Doughnut from "$lib/component/d3/Donut.svelte";
     import D3Bar from "$lib/component/d3/Bar.svelte";
-    import BarChartHorizontal from "$lib/component/BarChartHorizontal.svelte";
+    import D3VerticalBar from "$lib/component/d3/VerticalBar.svelte";
     export let data: PageData;
     let gridApi: GridApi;
     let theme = "ag-theme-alpine-dark col-span-2";
@@ -327,7 +327,9 @@
             value: value,
         }),
     );
-    let currencyResSorted = currencyRes.slice().sort((a, b) => b.value - a.value);
+    let currencyResSorted = currencyRes
+        .slice()
+        .sort((a, b) => b.value - a.value);
 
     // Sort the data by asset_type
     const sortedDataByCountry = assets
@@ -343,12 +345,10 @@
         },
         {},
     );
-    const countryRes = Object.entries(sumVarByCountry).map(
-        ([key, value]) => ({
-            key: key,
-            value: Math.round((value / totalSumVar) * 100 * 100) / 100,
-        }),
-    );
+    const countryRes = Object.entries(sumVarByCountry).map(([key, value]) => ({
+        key: key,
+        value: Math.round((value / totalSumVar) * 100 * 100) / 100,
+    }));
     let countryResSorted = countryRes.slice().sort((a, b) => b.value - a.value);
 
     // Sort the data by asset_type
@@ -365,73 +365,35 @@
         },
         {},
     );
-    const sectorRes = Object.entries(sumVarBySector).map(([country, sum]) => ({
-        name: country,
-        sum: Math.round((sum / totalSumVar) * 100 * 100) / 100,
+    const sectorRes = Object.entries(sumVarBySector).map(([key, value]) => ({
+        key: key,
+        value: Math.round((value / totalSumVar) * 100 * 100) / 100,
     }));
-    let sectorResSorted = sectorRes.slice().sort((a, b) => b.sum - a.sum);
+    let sectorResSorted = sectorRes.slice().sort((a, b) => b.value - a.value);
 </script>
 
-<div class="relative">
-    <div class="grid grid-cols-5">
+<div id="whole_site" class="relative ">
+    <div class="grid grid-cols-12 my-5 gap-4">
         <div
             id="myGrid"
             style="height: 100%; width:100%;"
-            class="ag-theme-alpine-dark col-span-4 p-5"
+            class="ag-theme-quartz-dark col-span-9 pl-4 "
         />
-        <div class="pr-5 mr-0 m-5">
-            <BarChartHorizontal data={sectorResSorted} id="sectorBar" />
-        </div>
+            <D3VerticalBar data={sectorResSorted} title="Assetklassen" />
     </div>
 
-    <div class="grid gap-4 grid-cols-3 grid-rows-3">
-        <div class="pl-5 box">
-            <D3Doughnut data={assetTypeResSorted}  />
-        </div>
-        <div class="px-5">
-            <D3Bar data={currencyResSorted}/>
-        </div>
-        <div class="pr-5">
-            <D3Doughnut data={countryResSorted}  />
-        </div>
+    <div class="pl-4 pr-4 grid gap-4 grid-cols-3 grid-rows-3">
+        <D3Doughnut data={assetTypeResSorted} title="Assetklassen" />
+        <D3Bar data={currencyResSorted} title="Währungen"/>
+        <D3Doughnut data={countryResSorted} title="Länder" />
     </div>
 </div>
 
 <style>
-    .dropdown {
-        background: #222628;
-        border-color: #68686e !important;
-        color: #fff;
-        border-radius: 3px;
-        border: solid 1px;
-        outline: none;
-        font-size: 13px;
-    }
-    .dropdown_container {
-        align-items: center;
-    }
-    .pos {
-        float: inline-end;
-        padding-left: 17px;
-        padding-right: 17px;
-        height: 42px;
-    }
-    .left {
-        float: auto;
-    }
-    .ag-theme-alpine-dark,
-    .ag-theme-alpine,
-    .ag-theme-balham-dark,
-    .ag-theme-balham,
-    .ag-theme-quartz-dark,
-    .ag-theme-quartz,
-    .ag-theme-material {
-        --ag-active-color: #76cbed !important;
-        --ag-alpine-active-color: #76cbed !important;
-        --ag-alpine-active-color: #76cbed !important;
-        --ag-alpine-dark-active-color: #76cbed !important;
-        --ag-balham-active-color: #76cbed !important;
-        --ag-checkbox-checked-color: #76cbed !important;
-        --ag-checkbox-input: #76cbed !important;
-    }
+.ag-theme-quartz-dark {
+    --ag-odd-row-background-color: #2c2c2c;
+    --ag-background-color: #2c2c2c;
+    --ag-header-background-color: #2c2c2c;
+    --ag-border-color:  #2c2c2c;
+}
 </style>
