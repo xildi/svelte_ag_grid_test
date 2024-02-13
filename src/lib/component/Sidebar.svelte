@@ -53,7 +53,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Home"
-                            class="hover:bg-[#1e1e1e] rounded-none "
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -67,7 +67,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Übersicht"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -81,7 +81,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Berechnung"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -95,7 +95,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Dashboard"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -116,7 +116,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Versand"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -130,7 +130,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Stammdaten"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -144,7 +144,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Schützen"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -163,7 +163,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Informationen"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -177,7 +177,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Feedback"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -191,7 +191,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Erinnerungen"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -205,7 +205,7 @@
                         <SidebarItem
                             href="/dashboard"
                             label="Einstellungen"
-                            class="hover:bg-[#1e1e1e] rounded-none"
+                            class="hover:bg-[#1e1e1e] rounded-none  m-4"
                             {spanClass}
                         >
                             <svelte:fragment slot="icon">
@@ -231,7 +231,7 @@
                 >
                     <!-- Section at the top -->
                     <SidebarGroup class="mt-auto ">
-                        <SidebarItem href="/dashboard" spanClass="" 
+                        <SidebarItem href="/dashboard" spanClass=""
                         class="justify-center hover:bg-[#1e1e1e] rounded-none m-4">
                             <svelte:fragment slot="icon">
                                 <HouseChimney
