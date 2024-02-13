@@ -10,132 +10,339 @@
         type ValueFormatterParams,
         type TooltipRendererParams,
         type MarkerFormatterParams,
+        type NewValueParams,
     } from "ag-grid-community";
 
     import type { PageData } from "./$types";
     import D3Doughnut from "$lib/component/d3/Donut.svelte";
     import D3Bar from "$lib/component/d3/Bar.svelte";
     import D3VerticalBar from "$lib/component/d3/VerticalBar.svelte";
-    export let data: PageData;
     let gridApi: GridApi;
     let theme = "ag-theme-alpine-dark col-span-2";
+    $: asset_data = [
+        {
+            id: 1,
+            name: "Apple Inc",
+            asset_type: "Equity",
+            currency: "USD",
+            nominale: 50000,
+            kurs_iw: 287.05,
+            kurs_fw: 13070822,
+            exposure: 13070822,
+            rendite: 0.3,
+            component_var: 160238,
+            var: 345008,
+            liquidity_risk: 130708,
+            country: "USA",
+            sector: "IT",
+        },
+        {
+            id: 2,
+            name: "Wellsitin AG",
+            asset_type: "Equity",
+            currency: "EUR",
+            nominale: 12042700,
+            kurs_iw: 0.725,
+            kurs_fw: 8730958,
+            exposure: 8730958,
+            rendite: 0.1,
+            component_var: 929887,
+            var: 1161244,
+            liquidity_risk: 130964,
+            country: "Deutschland",
+            sector: "Finanzen",
+        },
+        {
+            id: 3,
+            name: "Cooperative Rabobank UA",
+            asset_type: "FRN",
+            currency: "EUR",
+            nominale: 4000000,
+            kurs_iw: 100.501,
+            kurs_fw: 3922120,
+            exposure: 3922120,
+            rendite: 1.9,
+            component_var: -1806,
+            var: 1620,
+            liquidity_risk: 12557,
+            country: "Frankreich",
+            sector: "Finanzen",
+        },
+        {
+            id: 4,
+            name: "Volksbank Wien AG",
+            asset_type: "FRN",
+            currency: "EUR",
+            nominale: 4000000,
+            kurs_iw: 98.503,
+            kurs_fw: 3922120,
+            exposure: 3922120,
+            rendite: 3.4,
+            component_var: -1017,
+            var: 3139,
+            liquidity_risk: 43501,
+            country: "Österreich",
+            sector: "Finanzen",
+        },
+        {
+            id: 5,
+            name: "Tsy Infl IX N/B",
+            asset_type: "FRN",
+            currency: "USD",
+            nominale: 4000000,
+            kurs_iw: 99.523,
+            kurs_fw: 3625440,
+            exposure: 3625440,
+            rendite: 1.1,
+            component_var: 18099,
+            var: 68986,
+            liquidity_risk: 5964,
+            country: "USA",
+            sector: "Basiskonsumgüter",
+        },
+        {
+            id: 6,
+            name: "Roche Holding AG-GS",
+            asset_type: "Equity",
+            currency: "CHF",
+            nominale: 11000,
+            kurs_iw: 314.95,
+            kurs_fw: 3285338,
+            exposure: 3285338,
+            rendite: 2.3,
+            component_var: 108060,
+            var: 185681,
+            liquidity_risk: 32853,
+            country: "Schweiz",
+            sector: "Basiskonsumgüter",
+        },
+        {
+            id: 7,
+            name: "Sriev NV",
+            asset_type: "FRN",
+            currency: "CHF",
+            nominale: 3000000,
+            kurs_iw: 101787,
+            kurs_fw: 2895738,
+            exposure: 2895738,
+            rendite: 1.9,
+            component_var: -5003,
+            var: 11470,
+            liquidity_risk: 14181,
+            country: "Schweiz",
+            sector: "IT",
+        },
+        {
+            id: 8,
+            name: "Credit Suisse AG London",
+            asset_type: "Bond",
+            currency: "GBP",
+            nominale: 2500000,
+            kurs_iw: 96.69,
+            kurs_fw: 2778971,
+            exposure: 2778971,
+            rendite: 0.1,
+            component_var: 15947,
+            var: 53553,
+            liquidity_risk: 21383,
+            country: "UK",
+            sector: "Finanzen",
+        },
+        {
+            id: 9,
+            name: "African Export-Import Bank",
+            asset_type: "Bond",
+            currency: "USD",
+            nominale: 2500000,
+            kurs_iw: 101.625,
+            kurs_fw: 2330007,
+            exposure: 2330007,
+            rendite: 6.8,
+            component_var: 6485,
+            var: 38556,
+            liquidity_risk: 19869,
+            country: "USA",
+            sector: "Finanzen",
+        },
+        {
+            id: 10,
+            name: "Aegon NV",
+            asset_type: "FRN",
+            currency: "EUR",
+            nominale: 2000000,
+            kurs_iw: 104.762,
+            kurs_fw: 2095240,
+            exposure: 2095240,
+            rendite: 0.0,
+            component_var: -1988,
+            var: 1949,
+            liquidity_risk: 18245,
+            country: "Deutschland",
+            sector: "IT",
+        },
+        {
+            id: 11,
+            name: "Telecom Italia Spa",
+            asset_type: "Bond",
+            currency: "EUR",
+            nominale: 2000000,
+            kurs_iw: 96148,
+            kurs_fw: 1922960,
+            exposure: 1922960,
+            rendite: 6.8,
+            component_var: -1432,
+            var: 1795,
+            liquidity_risk: 7846,
+            country: "Italien",
+            sector: "Telekommunikation",
+        },
+        {
+            id: 12,
+            name: "Bank of America Corp",
+            asset_type: "FRN",
+            currency: "USD",
+            nominale: 2000000,
+            kurs_iw: 95.07,
+            kurs_fw: 1731605,
+            exposure: 1731605,
+            rendite: 0.0,
+            component_var: 13847,
+            var: 31040,
+            liquidity_risk: 10278,
+            country: "USA",
+            sector: "Finanzen",
+        },
+        {
+            id: 13,
+            name: "GMP Quantis Low Volatile",
+            asset_type: "Equity",
+            currency: "EUR",
+            nominale: 15000,
+            kurs_iw: 112.22,
+            kurs_fw: 1683300,
+            exposure: 1683300,
+            rendite: 1.6,
+            component_var: 51523,
+            var: 78679,
+            liquidity_risk: 16833,
+            country: "Deutschland",
+            sector: "Andere",
+        },
+    ];
 
-    function currencyFormatter(params: ValueFormatterParams) {
-        if (params.value !== undefined && params.value !== null) {
-            return params.value == null
-                ? ""
-                : "CHF " + numberWithCommas(params.value);
-        }
-        return params.value == null ? "" : numberWithCommas(params.value);
-    }
+    // Declare assetTypeResSorted as a reactive variable
+    let assetTypeResSorted;
+    // Update assetTypeResSorted when assets change
+    $: {
+        // Sort the data by asset_type
+        const sortedDataByAssetType = asset_data
+            .slice()
+            .sort((a, b) => a.asset_type.localeCompare(b.asset_type));
 
-    function numberWithCommas(x: string | number | boolean) {
-        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, "'");
-    }
+        // Calculate the sum of 'var' for each asset type
+        const sumVarByAssetType: Record<string, number> =
+            sortedDataByAssetType.reduce((acc, asset) => {
+                const key = asset.asset_type;
+                acc[key] = (acc[key] || 0) + asset.var;
+                return acc;
+            }, {});
 
-    function starRenderer(params: ICellRendererParams) {
-        if (params !== undefined && params !== null) {
-            let res = `<span>`;
-            for (let i = 0; i < params.value; i++) {
-                res += starRendererHelper();
-            }
-            res += `</span>`;
-            return res;
-        }
-    }
-    function starRendererFilter(params: ICellRendererParams) {
-        if (params.value === "(Select All)") {
-            return `<span>(Select All)</span>`;
-        }
-        if (params.value == 0) {
-            return `<span>No Stars</span>`;
-        }
-        if (params !== undefined && params !== null) {
-            let res = `<span>`;
-            for (let i = 0; i < params.value; i++) {
-                res += starRendererHelper();
-            }
-            res += `</span>`;
-            return res;
-        }
-    }
-    function starRendererHelper() {
-        return `<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>star</title>
-                <desc>Created with Sketch.</desc>
-                <defs/>
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="star" fill-rule="nonzero" fill="#4A4A4A">
-                        <polygon id="Shape" points="0 4.41133593 12 4.41133593 2.29311741 11.4655867 6.0048583 0.0485830253 9.71659919 11.4655867"/>
-                    </g>
-                </g>
-            </svg>`;
-    }
+        const totalSumVar = Object.values(sumVarByAssetType).reduce(
+            (sum, value) => sum + value,
+            0,
+        );
 
-    const tooltipRenderer = (params: TooltipRendererParams) => {
-        if (
-            params !== undefined &&
-            params !== null &&
-            params.context !== undefined &&
-            params.context !== null &&
-            params.context.data !== undefined &&
-            params.context.data !== null &&
-            params.context.data.total_winnings !== undefined &&
-            params.context.data.total_winnings !== null
-        ) {
-            return {
-                content: params.context.data.total_winnings,
-            };
-        }
-    };
+        const res = Object.entries(sumVarByAssetType).map(([key, value]) => ({
+            key: key,
+            value: Math.round((value / totalSumVar) * 100 * 100) / 100,
+        }));
 
-    function countryFlagRenderer(params: ICellRendererParams) {
-        if (
-            params !== undefined &&
-            params !== null &&
-            params.value !== undefined &&
-            params.value !== null
-        ) {
-            let flag_code = countries.find(
-                (value) => value.name === params.value,
-            );
-            if (flag_code !== undefined && flag_code !== null) {
-                return `<span><img src="img/flags/${flag_code.code}.webp" width="15" height="10" /> ${params.value}</span>`;
-            }
-            if (params.value !== undefined && params.value !== null) {
-                return `<span>${params.value}</span>`;
-            }
-        }
+        assetTypeResSorted = res.slice().sort((a, b) => b.value - a.value);
     }
+    let currencyResSorted;
+    $: {
+        // Sort the data by asset_type
+        const sortedDataByCurrency = asset_data
+            .slice()
+            .sort((a, b) => a.currency.localeCompare(b.currency));
 
-    const markerFormatter = (params: MarkerFormatterParams) => {
-        if (params !== undefined && params !== null) {
-            const { min, max } = params;
-            return {
-                size: min || max ? 5 : 3,
-                fill: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
-                stroke: min ? "#ee6666" : max ? "#3ba272" : "skyBlue",
-            };
-        }
-    };
-    function booleanTick(params: ICellRendererParams) {
-        if (params !== undefined && params !== null) {
-            if (params.value == true) {
-                return `<i class="ag-icon ag-icon-tick content-icon"/>`;
-            } else if (params.value == false) {
-                return `<i class="ag-icon ag-icon-cross content-icon"/>`;
-            }
-        }
+        // Calculate the sum of 'var' for each asset type
+        const sumVarByCurrency: Record<string, number> =
+            sortedDataByCurrency.reduce((acc, asset) => {
+                const key = asset.currency;
+                acc[key] = (acc[key] || 0) + asset.var;
+                return acc;
+            }, {});
+        const currencyRes = Object.entries(sumVarByCurrency).map(
+            ([key, value]) => ({
+                key: key,
+                value: value,
+            }),
+        );
+        currencyResSorted = currencyRes
+            .slice()
+            .sort((a, b) => b.value - a.value);
     }
-    function booleanTickFilter(params: ICellRendererParams) {
-        if (params !== undefined && params !== null) {
-            if (params.value == true) {
-                return `<i class="ag-icon ag-icon-tick content-icon"/>`;
-            } else if (params.value === "(Select All)") {
-                return `(Select All)`;
-            } else if (params.value == false) {
-                return `<i class="ag-icon ag-icon-cross content-icon"/>`;
-            }
+    let countryResSorted;
+    $: {
+        // Sort the data by asset_type
+        const sortedDataByCountry = asset_data
+            .slice()
+            .sort((a, b) => a.country.localeCompare(b.country));
+
+        // Calculate the sum of 'var' for each asset type
+        const sumVarByCountry: Record<string, number> =
+            sortedDataByCountry.reduce((acc, asset) => {
+                const key = asset.country;
+                acc[key] = (acc[key] || 0) + asset.var;
+                return acc;
+            }, {});
+
+        const totalSumVarCountry = Object.values(sumVarByCountry).reduce(
+            (sum, value) => sum + value,
+            0,
+        );
+        const countryRes = Object.entries(sumVarByCountry).map(
+            ([key, value]) => ({
+                key: key,
+                value:
+                    Math.round((value / totalSumVarCountry) * 100 * 100) / 100,
+            }),
+        );
+        countryResSorted = countryRes.slice().sort((a, b) => b.value - a.value);
+    }
+    let sectorResSorted;
+    $: {
+        // Sort the data by asset_type
+        const sortedDataBySector = asset_data
+            .slice()
+            .sort((a, b) => a.sector.localeCompare(b.sector));
+
+        // Calculate the sum of 'var' for each asset type
+        const sumVarBySector: Record<string, number> =
+            sortedDataBySector.reduce((acc, asset) => {
+                const key = asset.sector;
+                acc[key] = (acc[key] || 0) + asset.var;
+                return acc;
+            }, {});
+        const totalSumVarSector = Object.values(sumVarBySector).reduce(
+            (sum, value) => sum + value,
+            0,
+        );
+        const sectorRes = Object.entries(sumVarBySector).map(
+            ([key, value]) => ({
+                key: key,
+                value:
+                    Math.round((value / totalSumVarSector) * 100 * 100) / 100,
+            }),
+        );
+        sectorResSorted = sectorRes.slice().sort((a, b) => b.value - a.value);
+    }
+    function cellValueChanged(params: NewValueParams) {
+        let index = asset_data.findIndex((item) => item.id === params.data.id);
+        if (index !== -1) {
+            // Update the corresponding property with the new value
+            asset_data[index][params.colDef.field] = params.newValue;
         }
     }
 
@@ -194,15 +401,16 @@
                 minWidth: 70,
                 filter: false,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
+                onCellValueChanged: cellValueChanged,
             },
             {
                 field: "currency",
                 headerName: "Währung",
                 minWidth: 70,
                 filter: false,
-                floatingFilter: false,
-                editable: false,
+                editable: true,
+                onCellValueChanged: cellValueChanged,
             },
             {
                 field: "nominale",
@@ -258,7 +466,8 @@
                 minWidth: 70,
                 filter: false,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
+                onCellValueChanged: cellValueChanged,
             },
             {
                 field: "liquidity_risk",
@@ -278,122 +487,70 @@
         gridApi = createGrid(gridEl, gridOptions);
         gridApi.setGridOption("rowData", assets);
     });
-    async function onChange() {
-        gridApi.showLoadingOverlay();
-        const res = await fetch(`/api/data?rows=${row_count}`);
-        let res_value = await res.json();
-        gridApi!.setGridOption("rowData", res_value);
-        gridApi.hideOverlay();
-    }
-
-    // Sort the data by asset_type
-    const sortedDataByAssetType = assets
-        .slice()
-        .sort((a, b) => a.asset_type.localeCompare(b.asset_type));
-
-    // Calculate the sum of 'var' for each asset type
-    const sumVarByAssetType: Record<string, number> =
-        sortedDataByAssetType.reduce((acc, asset) => {
-            const key = asset.asset_type;
-            acc[key] = (acc[key] || 0) + asset.var;
-            return acc;
-        }, {});
-    const totalSumVar = Object.values(sumVarByAssetType).reduce(
-        (sum, value) => sum + value,
-        0,
-    );
-    const res = Object.entries(sumVarByAssetType).map(([key, value]) => ({
-        key: key,
-        value: Math.round((value / totalSumVar) * 100 * 100) / 100,
-    }));
-
-    let assetTypeResSorted = res.slice().sort((a, b) => b.value - a.value);
-
-    // Sort the data by asset_type
-    const sortedDataByCurrency = assets
-        .slice()
-        .sort((a, b) => a.currency.localeCompare(b.currency));
-
-    // Calculate the sum of 'var' for each asset type
-    const sumVarByCurrency: Record<string, number> =
-        sortedDataByCurrency.reduce((acc, asset) => {
-            const key = asset.currency;
-            acc[key] = (acc[key] || 0) + asset.var;
-            return acc;
-        }, {});
-    const currencyRes = Object.entries(sumVarByCurrency).map(
-        ([key, value]) => ({
-            key: key,
-            value: value,
-        }),
-    );
-    let currencyResSorted = currencyRes
-        .slice()
-        .sort((a, b) => b.value - a.value);
-
-    // Sort the data by asset_type
-    const sortedDataByCountry = assets
-        .slice()
-        .sort((a, b) => a.country.localeCompare(b.country));
-
-    // Calculate the sum of 'var' for each asset type
-    const sumVarByCountry: Record<string, number> = sortedDataByCountry.reduce(
-        (acc, asset) => {
-            const key = asset.country;
-            acc[key] = (acc[key] || 0) + asset.var;
-            return acc;
-        },
-        {},
-    );
-    const countryRes = Object.entries(sumVarByCountry).map(([key, value]) => ({
-        key: key,
-        value: Math.round((value / totalSumVar) * 100 * 100) / 100,
-    }));
-    let countryResSorted = countryRes.slice().sort((a, b) => b.value - a.value);
-
-    // Sort the data by asset_type
-    const sortedDataBySector = assets
-        .slice()
-        .sort((a, b) => a.sector.localeCompare(b.sector));
-
-    // Calculate the sum of 'var' for each asset type
-    const sumVarBySector: Record<string, number> = sortedDataBySector.reduce(
-        (acc, asset) => {
-            const key = asset.sector;
-            acc[key] = (acc[key] || 0) + asset.var;
-            return acc;
-        },
-        {},
-    );
-    const sectorRes = Object.entries(sumVarBySector).map(([key, value]) => ({
-        key: key,
-        value: Math.round((value / totalSumVar) * 100 * 100) / 100,
-    }));
-    let sectorResSorted = sectorRes.slice().sort((a, b) => b.value - a.value);
 </script>
 
-<div id="whole_site" class="relative ">
-    <div class="grid grid-cols-12 my-5 gap-4">
+<div class=" flex-grow overflow-auto">
+    <div class="grid grid-cols-12 gap-4 mr-4 ml-4 mt-4 mb-4 cont">
         <div
             id="myGrid"
-            style="height: 100%; width:100%;"
-            class="ag-theme-quartz-dark col-span-9 pl-4 "
+            style="width:100%;"
+            class="ag-theme-quartz-dark col-span-9 graph-container"
         />
-            <D3VerticalBar data={sectorResSorted} title="Assetklassen" />
+        <div class="bg-[#2c2c2c] rounded-lg col-span-3 pr-4">
+            <h1 class="text-white text-4xl m-4">Sektoren</h1>
+            <D3VerticalBar bind:data={sectorResSorted} />
+        </div>
     </div>
-
-    <div class="pl-4 pr-4 grid gap-4 grid-cols-3 grid-rows-3">
-        <D3Doughnut data={assetTypeResSorted} title="Assetklassen" />
-        <D3Bar data={currencyResSorted} title="Währungen"/>
-        <D3Doughnut data={countryResSorted} title="Länder" />
+    <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont">
+        <div class="bg-[#2c2c2c] rounded-lg h-full">
+            <h1 class="text-white text-4xl m-4">Assetklassen</h1>
+            <div class="h-full">
+                <D3Doughnut
+                    class="graph-container-third"
+                    bind:data={assetTypeResSorted}
+                />
+            </div>
+        </div>
+        <div class="bg-[#2c2c2c] rounded-lg">
+            <h1 class="text-white text-4xl m-4">Währungen</h1>
+            <div>
+                <D3Bar
+                    class="graph-container-third"
+                    bind:data={currencyResSorted}
+                    title="Währungen"
+                />
+            </div>
+        </div>
+        <div class="bg-[#2c2c2c] rounded-lg">
+            <h1 class="text-white text-4xl m-4">Länder</h1>
+            <div>
+                <D3Doughnut
+                    class="graph-container-third"
+                    bind:data={countryResSorted}
+                    title="Länder"
+                />
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-.ag-theme-quartz-dark {
-    --ag-odd-row-background-color: #2c2c2c;
-    --ag-background-color: #2c2c2c;
-    --ag-header-background-color: #2c2c2c;
-    --ag-border-color:  #2c2c2c;
-}
+    .heights {
+        height: calc(98vh - 5em) !important;
+    }
+    .ag-theme-quartz-dark {
+        --ag-odd-row-background-color: #2c2c2c;
+        --ag-background-color: #2c2c2c;
+        --ag-header-background-color: #2c2c2c;
+        --ag-border-color: #2c2c2c;
+    }
+    .graph-container {
+        height: calc((100vh - 6em) / 2) !important;
+    }
+    .cont {
+        height: calc((100vh - 6em) / 2) !important;
+    }
+    .graph-container-third {
+        width: calc(33.33% - 1em); /* Adjust the margin as needed */
+    }
 </style>

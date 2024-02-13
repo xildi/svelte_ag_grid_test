@@ -1,35 +1,45 @@
 <script lang="ts">
     import * as d3 from "d3";
 
-    let width = 650;
-    let height = 450;
-    let margin = 80;
+    export let width = 704.667;
+    export let height = 530.667;
+    let margin = -80;
 
-    const headerX = -50;
-    const headerY = -30;
-    export let data: [{ key: string; value: number }];
-    export let title;
+    const headerX = 30;
+    const headerY = 90;
+    export let data;
+    let xScale;
+    let yScale;
+    let colorScale;
+    let xAxis;
+    $: {
+        // Create scales
+        xScale = d3
+            .scaleBand()
+            .domain(data.map((d) => d.key))
+            .range([0, width + 20])
+            .padding(0.5);
 
-    // Create scales
-    $: xScale = d3
-        .scaleBand()
-        .domain(data.map((d) => d.key))
-        .range([0, width])
-        .padding(0.4);
+        yScale = d3
+            .scaleLinear()
+            .domain([0, d3.max(data, (d) => d.value * 1.5)]) // Adjust the multiplier as needed
+            .range([height, 0]);
 
-    $: yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.value * 1.2)]) // Adjust the multiplier as needed
-        .range([height, 0]);
-
-    $: colorScale = d3
-        .scaleOrdinal(d3.schemeTableau10)
-        .domain(data.map((d) => d.key))
-        .range(
-            ["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"].reverse(),
-        );
-    // Create x-axis
-    $: xAxis = d3.axisBottom(xScale);
+        colorScale = d3
+            .scaleOrdinal(d3.schemeTableau10)
+            .domain(data.map((d) => d.key))
+            .range(
+                [
+                    "#094f6b",
+                    "#0f84b2",
+                    "#42a9d2",
+                    "#76cced",
+                    "#9fd7ed",
+                ].reverse(),
+            );
+        // Create x-axis
+        xAxis = d3.axisBottom(xScale);
+    }
 
     const formatValue = (value) => {
         if (value >= 1000000) {
@@ -43,20 +53,10 @@
 </script>
 
 <svg
-    width={width + margin * 2}
-    height={height + margin * 2}  
-    style:max-width="100%"
-    style:height="auto"
-    class="bg-[#2c2c2c] rounded-lg"
+    viewBox={`${margin} ${margin} ${width - margin} ${height - margin}`}
 >
     <!-- Apply transform to move the graph -->
     <g transform={`translate(${margin}, ${margin})`}>
-        <!-- Render header text -->
-        <g class="header">
-            <text x={headerX} y={headerY} fill="white" font-size="2em">
-                {title}
-            </text>
-        </g>
         <!-- Render x-axis -->
         <g transform={`translate(0, ${height})`} class="x-axis">
             {#each data as d, i}

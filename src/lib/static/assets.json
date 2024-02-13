@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "Apple Inc",
         "asset_type": "Equity",
         "currency": "USD",
@@ -15,6 +16,7 @@
         "sector": "IT"
     },
     {
+        "id": 2,
         "name": "Wellsitin AG",
         "asset_type": "Equity",
         "currency": "EUR",
@@ -30,6 +32,7 @@
         "sector": "Finanzen"
     },
     {
+        "id": 3,
         "name": "Cooperative Rabobank UA",
         "asset_type": "FRN",
         "currency": "EUR",
@@ -45,6 +48,7 @@
         "sector": "Finanzen"
     },
     {
+        "id": 4,
         "name": "Volksbank Wien AG",
         "asset_type": "FRN",
         "currency": "EUR",
@@ -60,6 +64,7 @@
         "sector": "Finanzen"
     },
     {
+        "id": 5,
         "name": "Tsy Infl IX N/B",
         "asset_type": "FRN",
         "currency": "USD",
@@ -75,6 +80,7 @@
         "sector": "Basiskonsumgüter"
     },
     {
+        "id": 6,
         "name": "Roche Holding AG-GS",
         "asset_type": "Equity",
         "currency": "CHF",
@@ -90,6 +96,7 @@
         "sector": "Basiskonsumgüter"
     },
     {
+        "id": 7,
         "name": "Sriev NV",
         "asset_type": "FRN",
         "currency": "CHF",
@@ -105,6 +112,7 @@
         "sector": "IT"
     },
     {
+        "id": 8,
         "name": "Credit Suisse AG London",
         "asset_type": "Bond",
         "currency": "GBP",
@@ -116,10 +124,11 @@
         "component_var": 15947,
         "var": 53553,
         "liquidity_risk": 21383,
-        "country": "Vereinigtes Königreich",
+        "country": "UK",
         "sector": "Finanzen"
     },
     {
+        "id": 9,
         "name": "African Export-Import Bank",
         "asset_type": "Bond",
         "currency": "USD",
@@ -135,6 +144,7 @@
         "sector": "Finanzen"
     },
     {
+        "id": 10,
         "name": "Aegon NV",
         "asset_type": "FRN",
         "currency": "EUR",
@@ -150,6 +160,7 @@
         "sector": "IT"
     },
     {
+        "id": 11,
         "name": "Telecom Italia Spa",
         "asset_type": "Bond",
         "currency": "EUR",
@@ -165,6 +176,7 @@
         "sector": "Telekommunikation"
     },
     {
+        "id": 12,
         "name": "Bank of America Corp",
         "asset_type": "FRN",
         "currency": "USD",
@@ -180,6 +192,7 @@
         "sector": "Finanzen"
     },
     {
+        "id": 13,
         "name": "GMP Quantis Low Volatile",
         "asset_type": "Equity",
         "currency": "EUR",

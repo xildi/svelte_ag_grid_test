@@ -15,3 +15,5 @@ export const load = (async () => {
 		max_winnings: max_value,
 	};
 }) satisfies PageServerLoad;
+
+

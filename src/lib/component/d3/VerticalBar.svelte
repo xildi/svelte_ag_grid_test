@@ -1,14 +1,13 @@
 <script lang="ts">
     import * as d3 from "d3";
 
-    let width = 441;
-    let height = 450;
+    export let width = 528.5;
+    export let height = 372.5;
     let margin = 80;
 
     const headerX = -125;
     const headerY = -30;
     export let data: [{ key: string; value: number }];
-    export let title;
 
     // Swap x and y scales
     $: xScale = d3
@@ -44,17 +43,10 @@
 </script>
 
 <svg
-    width={width + margin * 2}
-    height={height + margin * 2}
-    class="bg-[#2c2c2c] rounded-lg col-span-3 pr-4"
+    
 >
-    <g transform={`translate(${margin*2}, ${margin})`}>
-        <!-- ... (header and other elements) -->
-        <g class="header">
-            <text x={headerX} y={headerY} fill="white" font-size="2em">
-                {title}
-            </text>
-        </g>
+    <g transform={`translate(${margin*2.4}, ${margin-60})`}>
+       
         <!-- Render bars -->
         {#each data as d, i}
             <!-- Render the label to the left of the bar -->

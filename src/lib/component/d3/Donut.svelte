@@ -1,42 +1,47 @@
 <script lang="ts">
   import * as d3 from "d3";
+  import { draw, fade, slide } from "svelte/transition";
   export let data;
-  export let title;
-  let width = 650;
-  let height = 450;
+  export let width = 704.667;
+  export let height = 530.667;
   let margin = 80;
   const headerX = -300;
   const headerY = -205;
-  // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-  let radius = Math.min(width, height) / 2 - margin;
+  let radius;
+  let color;
+  let pie;
+  let data_ready;
+  let arc;
+  let outerArc;
+  $: {
+    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+    radius = Math.min(width, height) / 2 - margin;
 
-  // Create dummy data
-  // const data = { a: 9, b: 20, c: 30, d: 8, e: 12, f: 3, g: 7, h: 14 };
+    // set the color scale
+    color = d3
+      .scaleOrdinal()
+      .domain(data.map((d) => d.key))
+      .range(["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"]);
 
-  // set the color scale
-  const color = d3
-    .scaleOrdinal()
-    .domain(data.map((d) => d.key))
-    .range(["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"]);
+    // Compute the position of each group on the pie:
+    pie = d3
+      .pie()
+      .sort(null) // Do not sort group by size
+      .value((d) => d.value);
+    data_ready = pie(data);
+    // The arc generator
+    arc = d3
+      .arc()
+      .padAngle(0.01)
+      .innerRadius(radius * 0.4) // This is the size of the donut hole
+      .outerRadius(radius * 0.8);
 
-  // Compute the position of each group on the pie:
-  const pie = d3
-    .pie()
-    .sort(null) // Do not sort group by size
-    .value((d) => d.value);
-  const data_ready = pie(data);
-  // The arc generator
-  const arc = d3
-    .arc()
-    .padAngle(0.01)
-    .innerRadius(radius * 0.4) // This is the size of the donut hole
-    .outerRadius(radius * 0.8);
-
-  // Another arc that won't be drawn. Just for labels positioning
-  const outerArc = d3
-    .arc()
-    .innerRadius(radius * 0.9)
-    .outerRadius(radius * 0.9);
+    // Another arc that won't be drawn. Just for labels positioning
+    outerArc = d3
+      .arc()
+      .innerRadius(radius * 0.9)
+      .outerRadius(radius * 0.9);
+  }
 
   // Function to calculate polyline points
   const calculatePolylinePoints = (d) => {
@@ -80,17 +85,10 @@
 </script>
 
 <svg
-  width={width + margin * 2}
-  height={height + margin * 2}
   viewBox="{-width / 2}, {-height / 2}, {width}, {height}"
   style:max-width="100%"
-  style:height="auto"
-  class=" bg-[#2c2c2c] rounded-lg  ">
-  <g class="header">
-    <text x={headerX} y={headerY} fill="white" font-size="2em">
-      {title}
-    </text>
-  </g>
+  style:height="100%"
+>
   <g class="chart-inner">
     {#each data_ready as slice}
       <path d={arc(slice)} fill={color(slice.data.key)} />
@@ -109,7 +107,7 @@
           fill="white"
           text-anchor={calculateLabelPosition(slice)[2]}
           dy="1em"
-          font-size="16px"
+          font-size="18px"
         >
           {slice.data.key}
         </text>
@@ -121,7 +119,7 @@
           fill="black"
           text-anchor="middle"
           dy=".35em"
-          font-size="10px"
+          font-size="14px"
         >
           {(
             ((slice.endAngle - slice.startAngle) / (2 * Math.PI)) *

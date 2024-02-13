@@ -16,6 +16,7 @@
 <style>
     :global(body, html) {
         background: #1e1e1e;
+        height: 100%;
     }
     #content {
         height: 98vh;
