@@ -243,7 +243,7 @@
         },
 
         {
-            asset_type: "Rohstoff",
+            asset_type: "Rohstoffe",
             component_var: 63445.12,
             country: "International",
             currency: "USD",
