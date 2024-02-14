@@ -112,14 +112,14 @@
                 placeholder="Search"
             />
         </form>
-        <div class=" items-end pl-16 pr-4 mb-1 text-black dark:text-white">
-            <button on:click={() => (isUserMenuShow = !isUserMenuShow)}>
+        <div class="flex items-end pl-16 pr-4 mb-1 text-black dark:text-white">
+            <button class="items-center" on:click={() => (isUserMenuShow = !isUserMenuShow)}>
                 <User width="1.75em" height="1.75em" fill="white" />
             </button>
             <!-- Dropdown menu -->
             <Dropdown
                 open={isUserMenuShow}
-                class="bg-[#2c2c2c] rounded-b-lg border-b border-l border-r mt-2 border-[#3a3a3a]"
+                class="bg-[#2c2c2c] rounded-b-lg border-b border-l border-r mt-1 border-[#3a3a3a]"
             >
                 <DropdownItem class="flex  hover:bg-[#1e1e1e]">
                     <a class=" flex items-center" href="/dashboard"
