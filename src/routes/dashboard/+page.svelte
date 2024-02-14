@@ -533,7 +533,7 @@
             },
             {
                 field: "kurs_fw",
-                headerName: "Kurs FW",
+                headerName: "Wert",
                 minWidth: 70,
                 filter: false,
                 floatingFilter: false,
