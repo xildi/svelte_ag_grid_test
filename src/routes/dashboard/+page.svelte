@@ -780,7 +780,8 @@
             {
                 field: "name",
                 headerName: "Name",
-                minWidth: 250,
+                minWidth: 50,
+                width: 250,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
@@ -813,7 +814,7 @@
             {
                 field: "currency",
                 headerName: "W.",
-                minWidth: 30,
+                minWidth: 20,
                 filter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,

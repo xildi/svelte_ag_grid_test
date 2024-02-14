@@ -1,9 +1,9 @@
 <script lang="ts">
   import * as d3 from "d3";
   import { draw, fade, slide } from "svelte/transition";
-  export let data;    
-    export let width = 683;
-    export let height = 432.5;
+  export let data;
+  export let width = 683;
+  export let height = 432.5;
   let margin = 0;
   let radius: number;
   let color;
@@ -83,8 +83,8 @@
 </script>
 
 <svg
-{height}
-{width}
+  {height}
+  {width}
   viewBox="{-width / 2}, {-height / 2}, {width}, {height}"
   style:max-width="100%"
   style:height="100%"
@@ -135,5 +135,4 @@
   :global(body) {
     margin: 0;
   }
-
 </style>
