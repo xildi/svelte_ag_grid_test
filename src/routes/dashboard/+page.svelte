@@ -858,11 +858,9 @@
             },
 
             {
-                field: "exposure",
-                headerName: "Exposure",
+                field: "sector",
+                headerName: "Sector",
                 minWidth: 110,
-                type: "numericColumn",
-                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
