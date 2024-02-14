@@ -92,7 +92,7 @@
   <g class="chart-inner">
     {#each data_ready as slice}
       <path d={arc(slice)} fill={color(slice.data.key)} />
-      {#if ((slice.endAngle - slice.startAngle) / (2 * Math.PI)) * 100 > 2}
+      {#if ((slice.endAngle - slice.startAngle) / (2 * Math.PI)) * 100 > 2.5}
         <!-- Draw polyline -->
         <polyline
           stroke="gray"
