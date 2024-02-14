@@ -771,7 +771,6 @@
             {
                 field: "id",
                 headerName: "ID",
-                minWidth: 70,
                 hide: true,
                 filter: false,
                 floatingFilter: false,
@@ -789,7 +788,7 @@
             {
                 field: "asset_type",
                 headerName: "Klasse",
-                minWidth: 120,
+                width: 50,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
@@ -798,7 +797,7 @@
             {
                 field: "sector",
                 headerName: "Sektor",
-                minWidth: 110,
+                width: 50,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
@@ -809,12 +808,13 @@
                 cellRenderer: countryFlagRenderer,
                 enableRowGroup: true,
                 editable: true,
-                minWidth: 150,
+                width: 50,
             },
             {
                 field: "currency",
                 headerName: "W.",
-                minWidth: 20,
+                maxWidth: 60,
+            
                 filter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,
@@ -822,7 +822,7 @@
             {
                 field: "nominale",
                 headerName: "Nominale",
-                minWidth: 150,
+                width: 50,
                 filter: false,
                 type: "numericColumn",
                 valueFormatter: currencyFormatterNominale,
@@ -832,7 +832,7 @@
             {
                 field: "kurs_iw",
                 headerName: "Kurs IW",
-                minWidth: 100,
+                width: 50,
                 type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
@@ -841,7 +841,7 @@
             {
                 field: "kurs_fw",
                 headerName: "Wert",
-                minWidth: 110,
+                width: 50,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -880,12 +880,12 @@
                         },
                     },
                 },
-                minWidth: 110,
+                width: 100
             },
             {
                 field: "rendite",
                 headerName: "Rendite",
-                minWidth: 80,
+                maxWidth: 100,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -893,7 +893,7 @@
             {
                 field: "var",
                 headerName: "VaR",
-                minWidth: 120,
+                width: 100,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -903,7 +903,7 @@
             {
                 field: "liquidity_risk",
                 headerName: "Liq. Risk",
-                minWidth: 100,
+                width: 100,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
