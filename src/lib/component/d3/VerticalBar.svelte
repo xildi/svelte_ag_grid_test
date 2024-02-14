@@ -28,7 +28,7 @@
     $: colorScale = scaleOrdinal(d3.schemeTableau10)
         .domain(data.map((d) => d.key))
         .range(
-            ["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"].reverse(),
+            ["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"],
         );
     const formatValue = (value) => {
         if (value >= 1e9) {
@@ -55,7 +55,7 @@
         {#each data as d}
             <text
                 text-anchor="end"
-                x="-3"
+                x="-10"
                 dy=".32em"
                 fill="white"
                 y={yScale(d.key) + yScale.bandwidth() / 2}
@@ -71,7 +71,7 @@
             />
             <text
                 text-anchor="start"
-                x={xScale(d.value) * barWidthScale + 5}
+                x={xScale(d.value) * barWidthScale + 6}
                 y={yScale(d.key) + yScale.bandwidth() / 2}
                 dy=".32em"
                 fill="white"

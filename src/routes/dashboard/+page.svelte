@@ -580,6 +580,14 @@
                 floatingFilter: false,
                 editable: false,
             },
+            {
+                field: "country",
+                headerName: "Country",
+                minWidth: 70,
+                filter: false,
+                floatingFilter: false,
+                editable: false,
+            },
         ],
     };
     onMount(() => {
@@ -600,7 +608,7 @@
             class="ag-theme-balham-dark col-span-9 graph-container rounded-lg cont"
         />
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont">
-            <h1 class="text-white text-4xl m-4">Sektoren</h1>
+            <h1 class="text-white text-2xl m-4">Sektoren</h1>
             <div class="flex-1 w-full">
                 <D3VerticalBar bind:data={sectorResSorted} />
             </div>
@@ -608,19 +616,19 @@
     </div>
     <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont">
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
-            <h1 class="text-white text-4xl m-4">Assetklassen</h1>
+            <h1 class="text-white text-2xl m-4">Assetklassen</h1>
             <div class="flex-1 w-full">
                 <D3Doughnut bind:data={assetTypeResSorted} />
             </div>
         </div>
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
-            <h1 class="text-white text-4xl m-4">Währungen</h1>
+            <h1 class="text-white text-2xl m-4">Währungen</h1>
             <div class="flex-1 w-full">
                 <D3Bar bind:data={currencyResSorted} />
             </div>
         </div>
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col h-full">
-            <h1 class=" text-white text-4xl m-4">Länder</h1>
+            <h1 class=" text-white text-2xl m-4">Länder</h1>
             <div class="flex-1 w-full">
                 <D3Doughnut bind:data={countryResSorted} />
             </div>

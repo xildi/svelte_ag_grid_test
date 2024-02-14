@@ -36,7 +36,7 @@
     {#if show}
         <Sidebar class="relative">
             <div
-                class="bg-[#2C2C2C] flex w-[10em] h-full flex-col rounded-none"
+                class="bg-[#2C2C2C] flex w-[12em] h-full flex-col rounded-none"
                 transition:slide={{ duration: 500, axis: "x" }}
             >
                 <button
@@ -46,7 +46,7 @@
                     <ArrowLeft width="1em" height="1em" fill="gray" />
                 </button>
                 <SidebarWrapper
-                    class="bg-[#2C2C2C] flex w-[10em] h-full flex-col rounded-none items-center"
+                    class="bg-[#2C2C2C] flex w-[12em] h-full flex-col rounded-none items-center"
                 >
                     <!-- Section at the top -->
                     <SidebarGroup class="mt-auto">
