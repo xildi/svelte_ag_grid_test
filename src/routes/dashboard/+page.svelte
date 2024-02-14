@@ -779,7 +779,7 @@
             {
                 field: "name",
                 headerName: "Name",
-                minWidth: 50,
+                minWidth: 250,
                 width: 250,
                 filter: false,
                 floatingFilter: false,
@@ -808,13 +808,12 @@
                 cellRenderer: countryFlagRenderer,
                 enableRowGroup: true,
                 editable: true,
-                width: 50,
+                minWidth: 140,
             },
             {
                 field: "currency",
                 headerName: "W.",
                 maxWidth: 60,
-            
                 filter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,
@@ -885,7 +884,9 @@
             {
                 field: "rendite",
                 headerName: "Rendite",
+                width: 50,
                 maxWidth: 100,
+                type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
                 editable: false,
