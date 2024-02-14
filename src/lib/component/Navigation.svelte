@@ -22,12 +22,8 @@
     import { resolveRoute } from "$app/paths";
 
     export let routes;
-    let showMenu = false;
     let loggedIn = true;
     let isUserMenuShow = false;
-    function toggleNavbar() {
-        showMenu = !showMenu;
-    }
     function loggedInClick() {
         loggedIn = !loggedIn;
     }
@@ -50,36 +46,11 @@
                 alt="XILDI Company logo which is a lightbulb made of a gear"
             />
         </a>
-        <!-- Mobile menu button -->
-        <div class="flex md:hidden">
-            <button
-                on:click={toggleNavbar}
-                type="button"
-                class="bg-gray-500 hover:bg-gray-200 text-white font-bold py-2 px-4 border-b-4 border-gray-800 hover:border-gray-500 rounded"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
-                </svg>
-            </button>
-        </div>
     </div>
 
     <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
     <div
-        class="flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 w-4/6 {showMenu
-            ? 'flex'
-            : 'hidden'}"
+        class=" mt-0 space-y-4 flex space-y-0  items-center  w-4/6 "
     >
         {#each routes as route}
             {#if route.display_name == "Portfolio"}
