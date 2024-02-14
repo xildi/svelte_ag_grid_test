@@ -764,6 +764,7 @@
             filter: "agTextColumnFilter",
             enablePivot: false,
         },
+            tooltipShowDelay: 200,
         enableCharts: true,
         enableRangeSelection: true,
         enableFillHandle: true,
@@ -779,6 +780,7 @@
             {
                 field: "name",
                 headerName: "Name",
+                headerTooltip: "Name",
                 minWidth: 250,
                 width: 250,
                 filter: false,
@@ -788,6 +790,7 @@
             {
                 field: "asset_type",
                 headerName: "Klasse",
+                headerTooltip: "Klasse",
                 width: 50,
                 filter: false,
                 floatingFilter: false,
@@ -797,22 +800,27 @@
             {
                 field: "sector",
                 headerName: "Sektor",
+                headerTooltip: "Sektor",
                 width: 50,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
+                onCellValueChanged: cellValueChanged,
             },
             {
                 field: "country",
                 headerName: "Land",
+                headerTooltip: "Land",
                 cellRenderer: countryFlagRenderer,
                 enableRowGroup: true,
                 editable: true,
+                onCellValueChanged: cellValueChanged,
                 minWidth: 140,
             },
             {
                 field: "currency",
                 headerName: "W.",
+                headerTooltip: "Währung",
                 maxWidth: 60,
                 filter: false,
                 editable: true,
@@ -821,6 +829,7 @@
             {
                 field: "nominale",
                 headerName: "Nominale",
+                headerTooltip: "Nominale",
                 width: 50,
                 filter: false,
                 type: "numericColumn",
@@ -831,6 +840,7 @@
             {
                 field: "kurs_iw",
                 headerName: "Kurs IW",
+                headerTooltip: "Kurs IW",
                 width: 50,
                 type: "numericColumn",
                 filter: false,
@@ -840,6 +850,7 @@
             {
                 field: "kurs_fw",
                 headerName: "Wert",
+                headerTooltip: "Wert",
                 width: 50,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
@@ -851,6 +862,7 @@
             {
                 cellRenderer: "agSparklineCellRenderer",
                 headerName: "Wert",
+                headerTooltip: "Wert",
                 sortable: false,
                 valueGetter: (params: ValueGetterParams) => {
                     const formattedData: any = [
@@ -884,8 +896,8 @@
             {
                 field: "rendite",
                 headerName: "Rendite",
+                headerTooltip: "Rendite",
                 width: 50,
-                maxWidth: 100,
                 type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
@@ -894,6 +906,7 @@
             {
                 field: "var",
                 headerName: "VaR",
+                headerTooltip: "VaR",
                 width: 100,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
@@ -904,6 +917,7 @@
             {
                 field: "liquidity_risk",
                 headerName: "Liq. Risk",
+                headerTooltip: "Liquiditäts Risiko",
                 width: 100,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
