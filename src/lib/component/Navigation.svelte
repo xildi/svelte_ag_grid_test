@@ -91,7 +91,7 @@
                 placeholder="Search"
             />
         </form>
-        <div class="flex items-end pl-16 pr-4 mb-1 text-black dark:text-white">
+        <div class="flex items-end pl-16 pr-4  text-black dark:text-white">
             <button
                 class="items-center"
                 on:click={() => (isUserMenuShow = !isUserMenuShow)}
@@ -186,7 +186,7 @@
         </div>
         <button
             on:click={loggedInClick}
-            class=" text-black mb-1 pr-2 dark:text-white"
+            class=" text-black  pr-4 dark:text-white"
         >
             {#if loggedIn}
                 <PowerOff width="1.75em" height="1.75em" fill="white" />
