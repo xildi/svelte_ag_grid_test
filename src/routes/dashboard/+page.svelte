@@ -745,10 +745,6 @@
             editable: true,
             filter: "agTextColumnFilter",
             enablePivot: false,
-            minWidth: 150,
-        },
-        defaultColGroupDef: {
-            marryChildren: true,
         },
         enableCharts: true,
         enableRangeSelection: true,
@@ -766,7 +762,7 @@
             {
                 field: "name",
                 headerName: "Name",
-                minWidth: 70,
+                minWidth: 280,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -774,7 +770,7 @@
             {
                 field: "asset_type",
                 headerName: "Asset Typ",
-                minWidth: 70,
+                minWidth: 120,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
@@ -790,8 +786,8 @@
             },
             {
                 field: "currency",
-                headerName: "Währung",
-                minWidth: 70,
+                headerName: "Wrg",
+                minWidth: 20,
                 filter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,
@@ -799,89 +795,74 @@
             {
                 field: "nominale",
                 headerName: "Nominale",
-                minWidth: 70,
+                minWidth: 150,
                 filter: false,
                 type: "numericColumn",
-                valueFormatter: currencyFormatter,
+                valueFormatter: currencyFormatterNominale,
                 floatingFilter: false,
                 editable: false,
             },
             {
                 field: "kurs_iw",
                 headerName: "Kurs IW",
-                minWidth: 70,
+                minWidth: 100,
                 type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
                 editable: false,
             },
             {
+                field: "kurs_fw",
                 headerName: "Wert",
-                enableRowGroup: true,
-                children: [
-                    {
-                        field: "kurs_fw",
-                        headerName: "",
-                        minWidth: 70,
-                        type: "numericColumn",
-                        valueFormatter: currencyFormatter,
-                        filter: false,
-                        floatingFilter: false,
-                        editable: true,
-                        onCellValueChanged: cellValueChanged,
-                    },
-                    {
-                        cellRenderer: "agSparklineCellRenderer",
-                        sortable: false,
-                        valueGetter: (params: ValueGetterParams) => {
-                            const formattedData: any = [
-                                0,
-                                params.data !== undefined &&
-                                params.data !== null
-                                    ? params.data.kurs_fw
-                                    : 0,
-                                0,
-                            ];
-                            return formattedData;
-                        },
-                        cellRendererParams: {
-                            sparklineOptions: {
-                                type: "bar",
-                                fill: "#094f6b",
-                                strokeWidth: 0,
+                minWidth: 150,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
+                filter: false,
+                floatingFilter: false,
+                editable: true,
+                onCellValueChanged: cellValueChanged,
+            },
+            {
+                cellRenderer: "agSparklineCellRenderer",
+                headerName: "Wert",
+                sortable: false,
+                valueGetter: (params: ValueGetterParams) => {
+                    const formattedData: any = [
+                        0,
+                        params.data !== undefined && params.data !== null
+                            ? params.data.kurs_fw
+                            : 0,
+                        0,
+                    ];
+                    return formattedData;
+                },
+                cellRendererParams: {
+                    sparklineOptions: {
+                        type: "bar",
+                        fill: "#094f6b",
+                        strokeWidth: 0,
 
-                                highlightStyle: {
-                                    fill: "#fac858",
-                                },
-                                valueAxisDomain: [0, maxKursFW],
-                                axis: {
-                                    strokeWidth: 0,
-                                },
-                                tooltip: {
-                                    renderer: tooltipRenderer,
-                                },
-                            },
+                        highlightStyle: {
+                            fill: "#fac858",
                         },
-                        minWidth: 150,
+                        valueAxisDomain: [0, maxKursFW],
+                        axis: {
+                            strokeWidth: 0,
+                        },
+                        tooltip: {
+                            renderer: tooltipRenderer,
+                        },
                     },
-                ],
+                },
+                minWidth: 150,
             },
 
             {
                 field: "exposure",
                 headerName: "Exposure",
-                minWidth: 70,
+                minWidth: 110,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
-                filter: false,
-                floatingFilter: false,
-                editable: false,
-            },
-            {
-                field: "rendite",
-                headerName: "Rendite",
-                minWidth: 70,
-                type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -889,7 +870,7 @@
             {
                 field: "var",
                 headerName: "Var",
-                minWidth: 70,
+                minWidth: 120,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -899,7 +880,7 @@
             {
                 field: "liquidity_risk",
                 headerName: "Liquidity Risk",
-                minWidth: 70,
+                minWidth: 150,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -933,6 +914,13 @@
             return params.value == null ? "" : numberWithCommas(params.value);
         }
         return params.value == null ? "" : numberWithCommas(params.value);
+    }
+
+    function currencyFormatterNominale(params: ValueFormatterParams) {
+        if (params.value !== undefined && params.value !== null) {
+            return params.value == null ? "" : numberWithCommas(Math.round(params.value));
+        }
+        return params.value == null ? "" : numberWithCommas(Math.round(params.value));
     }
 
     function numberWithCommas(x: string | number | boolean) {
