@@ -1,88 +1,83 @@
-<script lang="ts">
+<script>
+    import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale";
     import * as d3 from "d3";
+    export let data;
 
-    export let width = 528.5;
-    export let height = 372.5;
-    let margin = 80;
+    export let width = 508.25;
+    export let height = 432.5;
 
-    const headerX = -125;
-    const headerY = -30;
-    export let data: [{ key: string; value: number }];
-
-    // Swap x and y scales
-    $: xScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.value * 2)]) // Adjust the multiplier as needed
-        .range([0, width]);
-
-    $: yScale = d3
-        .scaleBand()
-        .domain(data.map((d) => d.key))
-        .range([0, height])
+    const barWidthScale = 1;
+    const margin = { top: 30, right: 100, bottom: 50, left: 200 };
+    const innerHeight = height - margin.top - margin.bottom;
+    const innerWidth = width - margin.left - margin.right;
+    $: yScale = scaleBand()
+        .domain(
+            // Sort the data in descending value
+            d3.groupSort(
+                data,
+                ([d]) => -d.value,
+                (d) => d.key,
+            ),
+        )
+        .range([0, innerHeight])
         .padding(0.4);
-    $: colorScale = d3
-        .scaleOrdinal(d3.schemeTableau10)
+    $: xScale = scaleLinear()
+        .domain([0, d3.max(data, (d) => d.value)])
+        .range([0, innerWidth]);
+
+    $: colorScale = scaleOrdinal(d3.schemeTableau10)
         .domain(data.map((d) => d.key))
         .range(
             ["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"].reverse(),
         );
-    // Create x-axis
-    $: xAxis = d3.axisBottom(xScale);
-
     const formatValue = (value) => {
-        if (value !== undefined && value !== null) {
-            if (value >= 1000000) {
-                return d3.format(".2s")(value).replace("G", "Mrd."); // Display in billions (G replaced with B)
-            } else if (value >= 1000) {
-                return d3.format(".2s")(value).replace("G", "Mio"); // Display in millions (G replaced with M)
-            } else {
-                return value.toFixed(2); // Display as is if less than 1000
-            }
+        if (value >= 1e9) {
+            return d3.format(".2s")(value).replace(/G/, " Mrd.");
+        } else if (value >= 1e6) {
+            return d3.format(".2s")(value).replace(/M/, " Mio.");
+        } else if (value >= 1e3) {
+            return d3.format(".2s")(value).replace(/k/, " K");
         }
+        return value;
     };
 </script>
 
 <svg
-    
+    {width}
+    {height}
+    viewBox="0 0 {width} {height}"
+    style:max-width="100%"
+    style:height="100%"
 >
-    <g transform={`translate(${margin*2.4}, ${margin-60})`}>
-       
-        <!-- Render bars -->
-        {#each data as d, i}
-            <!-- Render the label to the left of the bar -->
-            <text x="-5" 
+    <g transform={`translate(${margin.left},${margin.top})`}>
+        <line y2={innerHeight} stroke="white" />
+
+        {#each data as d}
+            <text
+                text-anchor="end"
+                x="-3"
+                dy=".32em"
+                fill="white"
                 y={yScale(d.key) + yScale.bandwidth() / 2}
-                text-anchor="end" fill="white" font-size="16px" dy="0.35em" >
+            >
                 {d.key}
             </text>
             <rect
-                class="bar"
                 x="0"
                 y={yScale(d.key)}
-                width={xScale(d.value)}
+                width={xScale(d.value) * barWidthScale}
                 height={yScale.bandwidth()}
                 fill={colorScale(d.key)}
             />
             <text
-                x={xScale(d.value) + 5}
-                y={yScale(d.key) + yScale.bandwidth() / 2}
                 text-anchor="start"
+                x={xScale(d.value) * barWidthScale + 5}
+                y={yScale(d.key) + yScale.bandwidth() / 2}
+                dy=".32em"
                 fill="white"
-                font-size="16px"
-                dy="0.35em"
             >
                 {formatValue(d.value)}
             </text>
         {/each}
-
-        <!-- Render vertical line at 0 -->
-        <line
-            x1={xScale(0)}
-            y1="0"
-            x2={xScale(0)}
-            y2={height}
-            stroke="gray"
-            stroke-width="2"
-        />
     </g>
 </svg>

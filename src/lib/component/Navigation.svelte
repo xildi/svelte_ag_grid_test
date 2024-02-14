@@ -14,15 +14,25 @@
         DropdownHeader,
         DropdownDivider,
     } from "flowbite-svelte";
+    import CogWheel from "./icon/cog_wheel.svelte";
+    import CircleQuestion from "./icon/circle-question.svelte";
+    import Darkmode from "./icon/darkmode.svelte";
+    import CommentDots from "./icon/comment-dots.svelte";
+    import Web from "./icon/web.svelte";
 
     export let routes;
     let showMenu = false;
     let loggedIn = true;
+    let isUserMenuShow = false;
     function toggleNavbar() {
         showMenu = !showMenu;
     }
     function loggedInClick() {
         loggedIn = !loggedIn;
+    }
+    function showUserMenu() {
+        console.log("clicked ", isUserMenuShow);
+        isUserMenuShow = !isUserMenuShow;
     }
 </script>
 
@@ -103,7 +113,98 @@
             />
         </form>
         <div class=" items-end pl-16 pr-4 mb-1 text-black dark:text-white">
-            <User id="user-menu" width="1.75em" height="1.75em" fill="white" />
+            <button on:click={() => (isUserMenuShow = !isUserMenuShow)}>
+                <User width="1.75em" height="1.75em" fill="white" />
+            </button>
+            <!-- Dropdown menu -->
+            <Dropdown
+                open={isUserMenuShow}
+                class="bg-[#2c2c2c] rounded-b-lg border-b border-l border-r mt-2 border-[#3a3a3a]"
+            >
+                <DropdownItem class="flex  hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center" href="/dashboard"
+                        ><img
+                            src="img/gianni.png"
+                            alt="Userimage"
+                            class="h-8 w-8"
+                        />
+                        <span class="ml-4 align-center text-center"
+                            >Gianni Notari</span
+                        ></a
+                    >
+                </DropdownItem>
+                <DropdownDivider class="border-b border-[#3a3a3a] mx-4"/>
+                <DropdownItem class="hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center" href="/dashboard">
+                        <div class="bg-[#3A3B3C] rounded-full p-2">
+                            <CogWheel
+                                height="1.75em"
+                                width="1.75em"
+                                fill="white"
+                            />
+                        </div>
+                        <span class="ml-4 align-center text-center"
+                            >User-Einstellungen</span
+                        >
+                    </a>
+                </DropdownItem>
+                <DropdownItem class="hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center" href="/dashboard">
+                        <div class="bg-[#3A3B3C] rounded-full p-2">
+                            <CircleQuestion
+                                height="1.75em"
+                                width="1.75em"
+                                fill="white"
+                            />
+                        </div>
+                        <span class="ml-4 align-center text-center"
+                            >Hilfe und Support</span
+                        >
+                    </a>
+                </DropdownItem>
+                <DropdownItem class="hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center" href="/dashboard">
+                        <div class="bg-[#3A3B3C] rounded-full p-2">
+                            <Darkmode
+                                height="1.75em"
+                                width="1.75em"
+                                fill="white"
+                            />
+                        </div>
+                        <span class="ml-4 align-center text-center"
+                            >Anzeige & Bedienhilfe</span
+                        >
+                    </a>
+                </DropdownItem>
+                <DropdownItem class="hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center" href="/dashboard">
+                        <div class="bg-[#3A3B3C] rounded-full p-2">
+                            <CommentDots
+                                height="1.75em"
+                                width="1.75em"
+                                fill="white"
+                            />
+                        </div>
+                        <span class="ml-4 align-center text-center"
+                            >Feedback geben</span
+                        >
+                    </a>
+                </DropdownItem>
+                <DropdownItem class="hover:bg-[#1e1e1e]">
+                    <a class=" flex items-center hover:" href="/dashboard">
+                        <div class="bg-[#3A3B3C] rounded-full p-2">
+                            <Web
+                                height="1.75em"
+                                width="1.75em"
+                                fill="white"
+                            />
+                        </div>
+                        <span class="ml-4 align-center text-center"
+                            >Sprache</span
+                        >
+                    </a>
+                </DropdownItem>
+            </Dropdown>
         </div>
         <button
             on:click={loggedInClick}
@@ -116,5 +217,4 @@
             {/if}
         </button>
     </div>
- 
 </nav>

@@ -1,13 +1,11 @@
 <script lang="ts">
   import * as d3 from "d3";
   import { draw, fade, slide } from "svelte/transition";
-  export let data;
-  export let width = 704.667;
-  export let height = 530.667;
-  let margin = 80;
-  const headerX = -300;
-  const headerY = -205;
-  let radius;
+  export let data;    
+    export let width = 683;
+    export let height = 432.5;
+  let margin = 0;
+  let radius: number;
   let color;
   let pie;
   let data_ready;
@@ -85,6 +83,8 @@
 </script>
 
 <svg
+{height}
+{width}
   viewBox="{-width / 2}, {-height / 2}, {width}, {height}"
   style:max-width="100%"
   style:height="100%"
@@ -135,4 +135,5 @@
   :global(body) {
     margin: 0;
   }
+
 </style>
