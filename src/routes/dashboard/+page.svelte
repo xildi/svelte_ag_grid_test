@@ -1,15 +1,24 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import {
         createGrid,
         type GridApi,
         type GridOptions,
+        type ICellRendererParams,
         type NewValueParams,
+        type TooltipRendererParams,
+        type ValueFormatterParams,
+        type ValueGetterParams,
     } from "ag-grid-community";
 
     import D3Doughnut from "$lib/component/d3/Donut.svelte";
     import D3Bar from "$lib/component/d3/Bar.svelte";
     import D3VerticalBar from "$lib/component/d3/VerticalBar.svelte";
+    import { LicenseManager } from "ag-grid-enterprise";
+
+    LicenseManager.setLicenseKey(
+        "Using_this_{AG_Charts_and_AG_Grid}_Enterprise_key_{AG-054178}_in_excess_of_the_licence_granted_is_not_permitted___Please_report_misuse_to_legal@ag-grid.com___For_help_with_changing_this_key_please_contact_info@ag-grid.com___{XILDI_AG}_is_granted_a_{Single_Application}_Developer_License_for_the_application_{ic}_only_for_{1}_Front-End_JavaScript_developer___All_Front-End_JavaScript_developers_working_on_{ic}_need_to_be_licensed___{ic}_has_not_been_granted_a_Deployment_License_Add-on___This_key_works_with_{AG_Charts_and_AG_Grid}_Enterprise_versions_released_before_{25_January_2025}____[v3]_[0102]_MTczNzc2MzIwMDAwMA==a76833d54e30f1203cb10fba213f4aaf",
+    );
     let gridApi: GridApi;
     let theme = "ag-theme-alpine-dark col-span-2";
     $: asset_data = [
@@ -335,6 +344,272 @@
         },
     ];
 
+    let countries = [
+        { name: "Afghanistan", code: "AF" },
+        { name: "Albanien", code: "AL" },
+        { name: "Algerien", code: "DZ" },
+        { name: "Amerikanisch-Samoa", code: "AS" },
+        { name: "Andorra", code: "AD" },
+        { name: "Angola", code: "AO" },
+        { name: "Anguilla", code: "AI" },
+        { name: "Antarktis", code: "AQ" },
+        { name: "Antigua und Barbuda", code: "AG" },
+        { name: "Argentinien", code: "AR" },
+        { name: "Armenien", code: "AM" },
+        { name: "Aruba", code: "AW" },
+        { name: "Australien", code: "AU" },
+        { name: "Österreich", code: "AT" },
+        { name: "Aserbaidschan", code: "AZ" },
+        { name: "Bahamas", code: "BS" },
+        { name: "Bahrain", code: "BH" },
+        { name: "Bangladesch", code: "BD" },
+        { name: "Barbados", code: "BB" },
+        { name: "Weißrussland", code: "BY" },
+        { name: "Belgien", code: "BE" },
+        { name: "Belize", code: "BZ" },
+        { name: "Benin", code: "BJ" },
+        { name: "Bermuda", code: "BM" },
+        { name: "Bhutan", code: "BT" },
+        { name: "Bolivien", code: "BO" },
+        { name: "Bonaire", code: "BQ" },
+        { name: "Bosnien und Herzegowina", code: "BA" },
+        { name: "Botswana", code: "BW" },
+        { name: "Bouvetinsel", code: "BV" },
+        { name: "Brasilien", code: "BR" },
+        { name: "Britisches Territorium im Indischen Ozean", code: "IO" },
+        { name: "Brunei Darussalam", code: "BN" },
+        { name: "Bulgarien", code: "BG" },
+        { name: "Burkina Faso", code: "BF" },
+        { name: "Burundi", code: "BI" },
+        { name: "Kambodscha", code: "KH" },
+        { name: "Kamerun", code: "CM" },
+        { name: "Kanada", code: "CA" },
+        { name: "Kap Verde", code: "CV" },
+        { name: "Kaimaninseln", code: "KY" },
+        { name: "Zentralafrikanische Republik", code: "CF" },
+        { name: "Tschad", code: "TD" },
+        { name: "Chile", code: "CL" },
+        { name: "China", code: "CN" },
+        { name: "Weihnachtsinsel", code: "CX" },
+        { name: "Kokosinseln", code: "CC" },
+        { name: "Kolumbien", code: "CO" },
+        { name: "Komoren", code: "KM" },
+        { name: "Kongo", code: "CG" },
+        { name: "Demokratische Republik Kongo", code: "CD" },
+        { name: "Cookinseln", code: "CK" },
+        { name: "Costa Rica", code: "CR" },
+        { name: "Elfenbeinküste", code: "CI" },
+        { name: "Kroatien", code: "HR" },
+        { name: "Kuba", code: "CU" },
+        { name: "Curaçao", code: "CW" },
+        { name: "Zypern", code: "CY" },
+        { name: "Tschechien", code: "CZ" },
+        { name: "Dänemark", code: "DK" },
+        { name: "Dschibuti", code: "DJ" },
+        { name: "Dominica", code: "DM" },
+        { name: "Dominikanische Republik", code: "DO" },
+        { name: "Ecuador", code: "EC" },
+        { name: "Ägypten", code: "EG" },
+        { name: "El Salvador", code: "SV" },
+        { name: "Äquatorialguinea", code: "GQ" },
+        { name: "Eritrea", code: "ER" },
+        { name: "Estland", code: "EE" },
+        { name: "Eswatini", code: "SZ" },
+        { name: "Äthiopien", code: "ET" },
+        { name: "Falklandinseln (Malwinen)", code: "FK" },
+        { name: "Färöer-Inseln", code: "FO" },
+        { name: "Fidschi", code: "FJ" },
+        { name: "Finnland", code: "FI" },
+        { name: "Frankreich", code: "FR" },
+        { name: "Französisch-Guayana", code: "GF" },
+        { name: "Französisch-Polynesien", code: "PF" },
+        { name: "Französische Süd- und Antarktisgebiete", code: "TF" },
+        { name: "Gabun", code: "GA" },
+        { name: "Gambia", code: "GM" },
+        { name: "Georgien", code: "GE" },
+        { name: "Deutschland", code: "DE" },
+        { name: "Ghana", code: "GH" },
+        { name: "Gibraltar", code: "GI" },
+        { name: "Griechenland", code: "GR" },
+        { name: "Grönland", code: "GL" },
+        { name: "Grenada", code: "GD" },
+        { name: "Guadeloupe", code: "GP" },
+        { name: "Guam", code: "GU" },
+        { name: "Guatemala", code: "GT" },
+        { name: "Guernsey", code: "GG" },
+        { name: "Guinea", code: "GN" },
+        { name: "Guinea-Bissau", code: "GW" },
+        { name: "Guyana", code: "GY" },
+        { name: "Haiti", code: "HT" },
+        { name: "Heard und McDonaldinseln", code: "HM" },
+        { name: "Heiliger Stuhl (Vatikanstadt)", code: "VA" },
+        { name: "Honduras", code: "HN" },
+        { name: "Hongkong", code: "HK" },
+        { name: "Ungarn", code: "HU" },
+        { name: "Island", code: "IS" },
+        { name: "Indien", code: "IN" },
+        { name: "Indonesien", code: "ID" },
+        { name: "Iran, Islamische Republik", code: "IR" },
+        { name: "Irak", code: "IQ" },
+        { name: "Irland", code: "IE" },
+        { name: "Isle of Man", code: "IM" },
+        { name: "Israel", code: "IL" },
+        { name: "Italien", code: "IT" },
+        { name: "Elfenbeinküste", code: "CI" },
+        { name: "Jamaika", code: "JM" },
+        { name: "Japan", code: "JP" },
+        { name: "Jersey", code: "JE" },
+        { name: "Jordanien", code: "JO" },
+        { name: "Kasachstan", code: "KZ" },
+        { name: "Kenia", code: "KE" },
+        { name: "Kiribati", code: "KI" },
+        { name: "Demokratische Volksrepublik Korea", code: "KP" },
+        { name: "Republik Korea", code: "KR" },
+        { name: "Kuwait", code: "KW" },
+        { name: "Kirgisistan", code: "KG" },
+        { name: "Demokratische Volksrepublik Laos", code: "LA" },
+        { name: "Laos", code: "LA" },
+        { name: "Lettland", code: "LV" },
+        { name: "Libanon", code: "LB" },
+        { name: "Lesotho", code: "LS" },
+        { name: "Liberia", code: "LR" },
+        { name: "Libysch-Arabische Dschamahirija", code: "LY" },
+        { name: "Liechtenstein", code: "LI" },
+        { name: "Litauen", code: "LT" },
+        { name: "Luxemburg", code: "LU" },
+        { name: "Macao", code: "MO" },
+        { name: "Mazedonien, ehemalige jugoslawische Republik", code: "MK" },
+        { name: "Madagaskar", code: "MG" },
+        { name: "Malawi", code: "MW" },
+        { name: "Malaysia", code: "MY" },
+        { name: "Malediven", code: "MV" },
+        { name: "Mali", code: "ML" },
+        { name: "Malta", code: "MT" },
+        { name: "Marshallinseln", code: "MH" },
+        { name: "Martinique", code: "MQ" },
+        { name: "Mauretanien", code: "MR" },
+        { name: "Mauritius", code: "MU" },
+        { name: "Mayotte", code: "YT" },
+        { name: "Mexiko", code: "MX" },
+        { name: "Mikronesien, Föderierte Staaten von", code: "FM" },
+        { name: "Moldau, Republik", code: "MD" },
+        { name: "Monaco", code: "MC" },
+        { name: "Mongolei", code: "MN" },
+        { name: "Montenegro", code: "ME" },
+        { name: "Montserrat", code: "MS" },
+        { name: "Marokko", code: "MA" },
+        { name: "Mosambik", code: "MZ" },
+        { name: "Myanmar", code: "MM" },
+        { name: "Namibia", code: "NA" },
+        { name: "Nauru", code: "NR" },
+        { name: "Nepal", code: "NP" },
+        { name: "Niederlande", code: "NL" },
+        { name: "Niederländische Antillen", code: "AN" },
+        { name: "Neukaledonien", code: "NC" },
+        { name: "Neuseeland", code: "NZ" },
+        { name: "Nicaragua", code: "NI" },
+        { name: "Niger", code: "NE" },
+        { name: "Nigeria", code: "NG" },
+        { name: "Niue", code: "NU" },
+        { name: "Norfolkinsel", code: "NF" },
+        { name: "Nördliche Marianen", code: "MP" },
+        { name: "Norwegen", code: "NO" },
+        { name: "Oman", code: "OM" },
+        { name: "Pakistan", code: "PK" },
+        { name: "Palau", code: "PW" },
+        { name: "Palästinensisches Gebiet, besetztes", code: "PS" },
+        { name: "Panama", code: "PA" },
+        { name: "Papua-Neuguinea", code: "PG" },
+        { name: "Paraguay", code: "PY" },
+        { name: "Peru", code: "PE" },
+        { name: "Philippinen", code: "PH" },
+        { name: "Pitcairninseln", code: "PN" },
+        { name: "Polen", code: "PL" },
+        { name: "Portugal", code: "PT" },
+        { name: "Puerto Rico", code: "PR" },
+        { name: "Katar", code: "QA" },
+        { name: "Ruanda", code: "RW" },
+        { name: "Réunion", code: "RE" },
+        { name: "Rumänien", code: "RO" },
+        { name: "Russische Föderation", code: "RU" },
+        { name: "St. Barthélemy", code: "BL" },
+        { name: "St. Helena", code: "SH" },
+        { name: "St. Kitts und Nevis", code: "KN" },
+        { name: "St. Lucia", code: "LC" },
+        { name: "St. Martin", code: "MF" },
+        { name: "St. Pierre und Miquelon", code: "PM" },
+        { name: "St. Vincent und die Grenadinen", code: "VC" },
+        { name: "Samoa", code: "WS" },
+        { name: "San Marino", code: "SM" },
+        { name: "São Tomé und Príncipe", code: "ST" },
+        { name: "Saudi-Arabien", code: "SA" },
+        { name: "Senegal", code: "SN" },
+        { name: "Serbien", code: "RS" },
+        { name: "Seychellen", code: "SC" },
+        { name: "Sierra Leone", code: "SL" },
+        { name: "Singapur", code: "SG" },
+        { name: "Sint Maarten", code: "SX" },
+        { name: "Slowakei", code: "SK" },
+        { name: "Slowenien", code: "SI" },
+        { name: "Salomonen", code: "SB" },
+        { name: "Somalia", code: "SO" },
+        { name: "Südafrika", code: "ZA" },
+        { name: "Südgeorgien und die Südlichen Sandwichinseln", code: "GS" },
+        { name: "Südsudan", code: "SS" },
+        { name: "Spanien", code: "ES" },
+        { name: "Sri Lanka", code: "LK" },
+        { name: "Sudan", code: "SD" },
+        { name: "Suriname", code: "SR" },
+        { name: "Svalbard und Jan Mayen", code: "SJ" },
+        { name: "Swasiland", code: "SZ" },
+        { name: "Schweden", code: "SE" },
+        { name: "Schweiz", code: "CH" },
+        { name: "Syrische Arabische Republik", code: "SY" },
+        { name: "Taiwan", code: "TW" },
+        { name: "Tadschikistan", code: "TJ" },
+        { name: "Tansania, Vereinigte Republik", code: "TZ" },
+        { name: "Thailand", code: "TH" },
+        { name: "Timor-Leste", code: "TL" },
+        { name: "Togo", code: "TG" },
+        { name: "Tokelau", code: "TK" },
+        { name: "Tonga", code: "TO" },
+        { name: "Trinidad und Tobago", code: "TT" },
+        { name: "Tunesien", code: "TN" },
+        { name: "Türkei", code: "TR" },
+        { name: "Turkmenistan", code: "TM" },
+        { name: "Turks- und Caicosinseln", code: "TC" },
+        { name: "Tuvalu", code: "TV" },
+        { name: "Uganda", code: "UG" },
+        { name: "Ukraine", code: "UA" },
+        { name: "Vereinigte Arabische Emirate", code: "AE" },
+        { name: "Vereinigtes Königreich", code: "GB" },
+        { name: "UK", code: "GB" },
+        { name: "Vereinigte Staaten", code: "US" },
+        { name: "USA", code: "US" },
+        { name: "United States Minor Outlying Islands", code: "UM" },
+        { name: "Uruguay", code: "UY" },
+        { name: "Usbekistan", code: "UZ" },
+        { name: "Vanuatu", code: "VU" },
+        { name: "Venezuela, Bolivarische Republik", code: "VE" },
+        { name: "Vietnam", code: "VN" },
+        { name: "Britische Jungferninseln", code: "VG" },
+        { name: "Amerikanische Jungferninseln", code: "VI" },
+        { name: "Wales", code: "GB" },
+        { name: "Wallis und Futuna", code: "WF" },
+        { name: "Westjordanland", code: "PS" },
+        { name: "Westsahara", code: "EH" },
+        { name: "Jemen", code: "YE" },
+        { name: "Sambia", code: "ZM" },
+        { name: "Simbabwe", code: "ZW" },
+    ];
+
+    let maxKursFW = 3654816;
+    $: {
+        maxKursFW = asset_data.reduce(
+            (max, item) => (item.kurs_fw > max ? item.kurs_fw : max),
+            0,
+        );
+    }
     // Declare assetTypeResSorted as a reactive variable
     let assetTypeResSorted;
     // Update assetTypeResSorted when assets change
@@ -449,28 +724,27 @@
             asset_data[index][params.colDef.field] = params.newValue;
         }
     }
-
+    const tooltipRenderer = (params: TooltipRendererParams) => {
+        if (
+            params !== undefined &&
+            params !== null &&
+            params.yValue !== undefined &&
+            params.yValue !== null
+        ) {
+            return {
+                content: params.yValue,
+            };
+        }
+    };
     const gridOptions: GridOptions = {
-        statusBar: {
-            statusPanels: [
-                {
-                    statusPanel: "agTotalRowCountComponent",
-                    align: "left",
-                },
-                {
-                    statusPanel: "agAggregationComponent",
-                    align: "right",
-                },
-            ],
-        },
-        sideBar: true,
+        sideBar: false,
         defaultColDef: {
             sortable: true,
             flex: 1,
             resizable: true,
             editable: true,
             filter: "agTextColumnFilter",
-            enablePivot: true,
+            enablePivot: false,
             minWidth: 150,
         },
         defaultColGroupDef: {
@@ -479,7 +753,6 @@
         enableCharts: true,
         enableRangeSelection: true,
         enableFillHandle: true,
-        rowGroupPanelShow: "always",
         columnDefs: [
             {
                 field: "id",
@@ -508,6 +781,14 @@
                 onCellValueChanged: cellValueChanged,
             },
             {
+                field: "country",
+                headerName: "Country",
+                cellEditor: "agRichSelectCellEditor",
+                cellRenderer: countryFlagRenderer,
+                enableRowGroup: true,
+                minWidth: 150,
+            },
+            {
                 field: "currency",
                 headerName: "Währung",
                 minWidth: 70,
@@ -520,6 +801,8 @@
                 headerName: "Nominale",
                 minWidth: 70,
                 filter: false,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 floatingFilter: false,
                 editable: false,
             },
@@ -527,6 +810,7 @@
                 field: "kurs_iw",
                 headerName: "Kurs IW",
                 minWidth: 70,
+                type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -535,15 +819,51 @@
                 field: "kurs_fw",
                 headerName: "Wert",
                 minWidth: 70,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,
             },
             {
+                cellRenderer: "agSparklineCellRenderer",
+                valueGetter: (params: ValueGetterParams) => {
+                    const formattedData: any = [
+                        0,
+                        params.data !== undefined && params.data !== null
+                            ? params.data.kurs_fw
+                            : 0,
+                        0,
+                    ];
+                    return formattedData;
+                },
+                cellRendererParams: {
+                    sparklineOptions: {
+                        type: "bar",
+                        fill: "#094f6b",
+                        strokeWidth: 0,
+
+                        highlightStyle: {
+                            fill: "#fac858",
+                        },
+                        valueAxisDomain: [0, maxKursFW],
+                        axis: {
+                            strokeWidth: 0,
+                        },
+                        tooltip: {
+                            renderer: tooltipRenderer,
+                        },
+                    },
+                },
+                minWidth: 150,
+            },
+            {
                 field: "exposure",
                 headerName: "Exposure",
                 minWidth: 70,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -552,6 +872,7 @@
                 field: "rendite",
                 headerName: "Rendite",
                 minWidth: 70,
+                type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -560,6 +881,8 @@
                 field: "component_var",
                 headerName: "Comp. Var",
                 minWidth: 70,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -568,6 +891,8 @@
                 field: "var",
                 headerName: "Var",
                 minWidth: 70,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
@@ -576,26 +901,54 @@
                 field: "liquidity_risk",
                 headerName: "Liquidity Risk",
                 minWidth: 70,
-                filter: false,
-                floatingFilter: false,
-                editable: false,
-            },
-            {
-                field: "country",
-                headerName: "Country",
-                minWidth: 70,
+                type: "numericColumn",
+                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
             },
         ],
     };
+
+    function countryFlagRenderer(params: ICellRendererParams) {
+        if (
+            params !== undefined &&
+            params !== null &&
+            params.value !== undefined &&
+            params.value !== null
+        ) {
+            let flag_code = countries.find(
+                (value) => value.name === params.value,
+            );
+            if (flag_code !== undefined && flag_code !== null) {
+                return `<span class="flex "><img src="https://flagsapi.com/${flag_code.code}/flat/24.png" class="mr-2"> ${params.value}</span>`;
+            }
+            if (params.value !== undefined && params.value !== null) {
+                return `<span>${params.value}</span>`;
+            }
+        }
+    }
+
+    function currencyFormatter(params: ValueFormatterParams) {
+        if (params.value !== undefined && params.value !== null) {
+            return params.value == null ? "" : numberWithCommas(params.value);
+        }
+        return params.value == null ? "" : numberWithCommas(params.value);
+    }
+
+    function numberWithCommas(x: string | number | boolean) {
+        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, "'");
+    }
     onMount(() => {
         const gridEl = document.getElementById("myGrid");
         if (!gridEl) {
             throw new Error("Grid element not found");
         }
         gridApi = createGrid(gridEl, gridOptions);
+        maxKursFW = asset_data.reduce(
+            (max, item) => (item.kurs_fw > max ? item.kurs_fw : max),
+            0,
+        );
         gridApi.setGridOption("rowData", asset_data);
     });
 </script>
