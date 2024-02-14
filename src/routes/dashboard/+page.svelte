@@ -816,48 +816,57 @@
                 editable: false,
             },
             {
-                field: "kurs_fw",
                 headerName: "Wert",
-                minWidth: 70,
-                type: "numericColumn",
-                valueFormatter: currencyFormatter,
-                filter: false,
-                floatingFilter: false,
-                editable: true,
-                onCellValueChanged: cellValueChanged,
-            },
-            {
-                cellRenderer: "agSparklineCellRenderer",
-                valueGetter: (params: ValueGetterParams) => {
-                    const formattedData: any = [
-                        0,
-                        params.data !== undefined && params.data !== null
-                            ? params.data.kurs_fw
-                            : 0,
-                        0,
-                    ];
-                    return formattedData;
-                },
-                cellRendererParams: {
-                    sparklineOptions: {
-                        type: "bar",
-                        fill: "#094f6b",
-                        strokeWidth: 0,
-
-                        highlightStyle: {
-                            fill: "#fac858",
-                        },
-                        valueAxisDomain: [0, maxKursFW],
-                        axis: {
-                            strokeWidth: 0,
-                        },
-                        tooltip: {
-                            renderer: tooltipRenderer,
-                        },
+                enableRowGroup: true,
+                children: [
+                    {
+                        field: "kurs_fw",
+                        headerName: "",
+                        minWidth: 70,
+                        type: "numericColumn",
+                        valueFormatter: currencyFormatter,
+                        filter: false,
+                        floatingFilter: false,
+                        editable: true,
+                        onCellValueChanged: cellValueChanged,
                     },
-                },
-                minWidth: 150,
+                    {
+                        cellRenderer: "agSparklineCellRenderer",
+                        sortable: false,
+                        valueGetter: (params: ValueGetterParams) => {
+                            const formattedData: any = [
+                                0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.kurs_fw
+                                    : 0,
+                                0,
+                            ];
+                            return formattedData;
+                        },
+                        cellRendererParams: {
+                            sparklineOptions: {
+                                type: "bar",
+                                fill: "#094f6b",
+                                strokeWidth: 0,
+
+                                highlightStyle: {
+                                    fill: "#fac858",
+                                },
+                                valueAxisDomain: [0, maxKursFW],
+                                axis: {
+                                    strokeWidth: 0,
+                                },
+                                tooltip: {
+                                    renderer: tooltipRenderer,
+                                },
+                            },
+                        },
+                        minWidth: 150,
+                    },
+                ],
             },
+
             {
                 field: "exposure",
                 headerName: "Exposure",
