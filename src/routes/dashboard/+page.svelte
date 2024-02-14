@@ -783,9 +783,9 @@
             {
                 field: "country",
                 headerName: "Country",
-                cellEditor: "agRichSelectCellEditor",
                 cellRenderer: countryFlagRenderer,
                 enableRowGroup: true,
+                editable: false,
                 minWidth: 150,
             },
             {
@@ -882,16 +882,6 @@
                 headerName: "Rendite",
                 minWidth: 70,
                 type: "numericColumn",
-                filter: false,
-                floatingFilter: false,
-                editable: false,
-            },
-            {
-                field: "component_var",
-                headerName: "Comp. Var",
-                minWidth: 70,
-                type: "numericColumn",
-                valueFormatter: currencyFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: false,

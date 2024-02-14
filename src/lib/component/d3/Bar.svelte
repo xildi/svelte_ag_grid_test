@@ -41,11 +41,11 @@
         );
     const formatValue = (value) => {
         if (value >= 1e9) {
-            return d3.format(".2s")(value).replace(/G/, "Mrd.");
+            return d3.format(".2s")(value).replace(/G/, " Mrd.");
         } else if (value >= 1e6) {
-            return d3.format(".2s")(value).replace(/M/, "Mio.");
-        } else if (value >= 1e3) {
-            return d3.format(".2s")(value).replace(/k/, "K");
+            return d3.format(".2s")(value).replace(/M/, " Mio.");
+        } else if (value >= 1e3) { 
+            return d3.format(".2s")(value).replace(/k/, " K");
         }
         return value;
     };
