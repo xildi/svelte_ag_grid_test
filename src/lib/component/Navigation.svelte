@@ -101,23 +101,23 @@
             <!-- Dropdown menu -->
             <Dropdown
                 open={isUserMenuShow}
-                class="bg-[#2c2c2c] rounded-b-lg border-b border-l border-r mt-1 border-[#3a3a3a]"
+                class="bg-[#2c2c2c] rounded-b-lg border-b border-l border-r  border-[#3a3a3a]"
             >
                 <DropdownItem class="flex  hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center" href="/dashboard"
+                    <a class=" flex items-center m-2" href="/dashboard" 
                         ><img
                             src="img/gianni.png"
                             alt="Userimage"
-                            class="h-12 w-12"
+                            class="h-10 w-10"
                         />
                         <span class="ml-4 align-center text-center"
                             >Gianni Notari</span
                         ></a
                     >
                 </DropdownItem>
-                <DropdownDivider class="border-b border-[#3a3a3a] mx-4" />
+                <DropdownDivider class="border-b border-[#3a3a3a] mx-4 mb-1" />
                 <DropdownItem class="hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center" href="/dashboard">
+                    <a class=" flex items-center m-2" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <CogWheel
                                 height="1.75em"
@@ -131,7 +131,7 @@
                     </a>
                 </DropdownItem>
                 <DropdownItem class="hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center" href="/dashboard">
+                    <a class=" flex items-center m-2" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <CircleQuestion
                                 height="1.75em"
@@ -145,7 +145,7 @@
                     </a>
                 </DropdownItem>
                 <DropdownItem class="hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center" href="/dashboard">
+                    <a class=" flex items-center  m-2" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <Darkmode
                                 height="1.75em"
@@ -159,7 +159,7 @@
                     </a>
                 </DropdownItem>
                 <DropdownItem class="hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center" href="/dashboard">
+                    <a class=" flex items-center  m-2" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <CommentDots
                                 height="1.75em"
@@ -173,7 +173,7 @@
                     </a>
                 </DropdownItem>
                 <DropdownItem class="hover:bg-[#1e1e1e]">
-                    <a class=" flex items-center hover:" href="/dashboard">
+                    <a class=" flex items-center  m-2" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <Web height="1.75em" width="1.75em" fill="white" />
                         </div>
