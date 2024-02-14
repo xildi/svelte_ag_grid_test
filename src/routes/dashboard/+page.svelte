@@ -846,6 +846,7 @@
                 headerTooltip: "Kurs IW",
                 width: 50,
                 type: "numericColumn",
+                valueFormatter: roundingFormatter,
                 filter: false,
                 floatingFilter: false,
                 editable: true,
@@ -854,7 +855,7 @@
                 field: "kurs_fw",
                 headerName: "Wert",
                 headerTooltip: "Wert",
-                width: 50,
+                width: 40,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -948,6 +949,14 @@
                 return `<span>${params.value}</span>`;
             }
         }
+    }
+    
+    function roundingFormatter(params: ValueFormatterParams) {
+        if (params.value !== undefined && params.value !== null) {
+            return params.value == null ? "" : Math.round(params.value * 100) /100 
+;
+        }
+        return params.value == null ? "" : Math.round(params.value * 100) /100;
     }
 
     function currencyFormatter(params: ValueFormatterParams) {
