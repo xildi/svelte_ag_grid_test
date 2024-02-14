@@ -48,6 +48,7 @@
     viewBox="0 0 {width} {height}"
     style:max-width="100%"
     style:height="100%"
+    style:max-height="432.5"
 >
     <g transform={`translate(${margin.left},${margin.top})`}>
         <line y2={innerHeight} stroke="white" />

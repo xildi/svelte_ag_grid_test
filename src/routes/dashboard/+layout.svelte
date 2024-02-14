@@ -32,6 +32,7 @@
             display_name: "Reporting",
         },
     ];
+
 </script>
 
 <div class="flex flex-col h-screen">
@@ -40,8 +41,8 @@
     <!-- Main Container -->
     <div id="content2" class="flex flex-row flex-grow">
         <!-- Sidebar -->
-
         <Sidebar />
+
         <!-- Main Content -->
         <slot />
     </div>

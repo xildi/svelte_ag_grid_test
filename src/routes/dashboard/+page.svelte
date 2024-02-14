@@ -23,7 +23,7 @@
     let theme = "ag-theme-alpine-dark col-span-2";
     $: asset_data = [
         {
-            asset_type: "Equity",
+            asset_type: "Aktie",
             component_var: 160238,
             country: "USA",
             currency: "USD",
@@ -39,7 +39,7 @@
             var: 345008,
         },
         {
-            asset_type: "Equity",
+            asset_type: "Aktie",
             component_var: 929887,
             country: "Deutschland",
             currency: "EUR",
@@ -54,6 +54,7 @@
             sector: "Finanzen",
             var: 1161244,
         },
+
         {
             asset_type: "FRN",
             component_var: -1806,
@@ -70,6 +71,7 @@
             sector: "Finanzen",
             var: 1620,
         },
+
         {
             asset_type: "FRN",
             component_var: -1017,
@@ -86,6 +88,7 @@
             sector: "Finanzen",
             var: 3139,
         },
+
         {
             asset_type: "FRN",
             component_var: 18099,
@@ -102,8 +105,9 @@
             sector: "Basiskonsumgüter",
             var: 68986,
         },
+
         {
-            asset_type: "Equity",
+            asset_type: "Aktie",
             component_var: 108060,
             country: "Schweiz",
             currency: "CHF",
@@ -118,6 +122,7 @@
             sector: "Basiskonsumgüter",
             var: 185681,
         },
+
         {
             asset_type: "FRN",
             component_var: -5003,
@@ -134,8 +139,9 @@
             sector: "IT",
             var: 11470,
         },
+
         {
-            asset_type: "Bond",
+            asset_type: "Anleihe",
             component_var: 15947,
             country: "UK",
             currency: "GBP",
@@ -150,8 +156,9 @@
             sector: "Finanzen",
             var: 53553,
         },
+
         {
-            asset_type: "Bond",
+            asset_type: "Anleihe",
             component_var: 6485,
             country: "USA",
             currency: "USD",
@@ -166,6 +173,7 @@
             sector: "Finanzen",
             var: 38556,
         },
+
         {
             asset_type: "FRN",
             component_var: -1988,
@@ -182,8 +190,9 @@
             sector: "IT",
             var: 1949,
         },
+
         {
-            asset_type: "Bond",
+            asset_type: "Anleihe",
             component_var: -1432,
             country: "Italien",
             currency: "EUR",
@@ -198,6 +207,7 @@
             sector: "Telekommunikation",
             var: 1795,
         },
+
         {
             asset_type: "FRN",
             component_var: 13847,
@@ -214,8 +224,9 @@
             sector: "Finanzen",
             var: 31040,
         },
+
         {
-            asset_type: "Equity",
+            asset_type: "Aktie",
             component_var: 51523,
             country: "Deutschland",
             currency: "EUR",
@@ -227,11 +238,12 @@
             name: "GMP Quantis Low Volatile",
             nominale: 15000,
             rendite: 1.6,
-            sector: "Andere",
+            sector: "Finanzen",
             var: 78679,
         },
+
         {
-            asset_type: "Commodity",
+            asset_type: "Rohstoff",
             component_var: 63445.12,
             country: "International",
             currency: "USD",
@@ -243,11 +255,12 @@
             name: "Gold 12.5 Kg 999.9",
             nominale: 37.35927093,
             rendite: -2.5,
-            sector: "Andere",
+            sector: "Material",
             var: 79306.4,
         },
+
         {
-            asset_type: "Bond",
+            asset_type: "Anleihe",
             component_var: 1708,
             country: "Frankreich",
             currency: "EUR",
@@ -262,8 +275,9 @@
             sector: "Telekommunikation",
             var: 2135,
         },
+
         {
-            asset_type: "Bond",
+            asset_type: "Anleihe",
             component_var: 3901.6,
             country: "Australien",
             currency: "AUD",
@@ -278,6 +292,7 @@
             sector: "Telekommunikation",
             var: 4877,
         },
+
         {
             asset_type: "Cash",
             component_var: 454,
@@ -291,9 +306,10 @@
             name: "EUR Current Account ",
             nominale: 891315,
             rendite: 1.2,
-            sector: "Andere",
+            sector: "Finanzen",
             var: 545,
         },
+
         {
             asset_type: "Cash",
             component_var: 312,
@@ -307,9 +323,10 @@
             name: "CHF Current Account ",
             nominale: 864134,
             rendite: 1.9,
-            sector: "Andere",
+            sector: "Finanzen",
             var: 323,
         },
+
         {
             asset_type: "Cash",
             component_var: 855,
@@ -323,9 +340,10 @@
             name: "USD Current Account ",
             nominale: 235402,
             rendite: 0.5,
-            sector: "Andere",
+            sector: "Finanzen",
             var: 478,
         },
+
         {
             asset_type: "Cash",
             component_var: 825,
@@ -339,7 +357,7 @@
             name: "AUD Current Account ",
             nominale: 3654816,
             rendite: -0.6,
-            sector: "Andere",
+            sector: "Finanzen",
             var: 658,
         },
     ];
@@ -762,14 +780,14 @@
             {
                 field: "name",
                 headerName: "Name",
-                minWidth: 280,
+                minWidth: 250,
                 filter: false,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
             },
             {
                 field: "asset_type",
-                headerName: "Asset Typ",
+                headerName: "Klasse",
                 minWidth: 120,
                 filter: false,
                 floatingFilter: false,
@@ -777,17 +795,25 @@
                 onCellValueChanged: cellValueChanged,
             },
             {
+                field: "sector",
+                headerName: "Sektor",
+                minWidth: 110,
+                filter: false,
+                floatingFilter: false,
+                editable: true,
+            },
+            {
                 field: "country",
-                headerName: "Country",
+                headerName: "Land",
                 cellRenderer: countryFlagRenderer,
                 enableRowGroup: true,
-                editable: false,
+                editable: true,
                 minWidth: 150,
             },
             {
                 field: "currency",
-                headerName: "Wrg",
-                minWidth: 20,
+                headerName: "W.",
+                minWidth: 30,
                 filter: false,
                 editable: true,
                 onCellValueChanged: cellValueChanged,
@@ -800,7 +826,7 @@
                 type: "numericColumn",
                 valueFormatter: currencyFormatterNominale,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
             },
             {
                 field: "kurs_iw",
@@ -809,12 +835,12 @@
                 type: "numericColumn",
                 filter: false,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
             },
             {
                 field: "kurs_fw",
                 headerName: "Wert",
-                minWidth: 150,
+                minWidth: 110,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -841,7 +867,6 @@
                         type: "bar",
                         fill: "#094f6b",
                         strokeWidth: 0,
-
                         highlightStyle: {
                             fill: "#fac858",
                         },
@@ -854,20 +879,19 @@
                         },
                     },
                 },
-                minWidth: 150,
-            },
-
-            {
-                field: "sector",
-                headerName: "Sector",
                 minWidth: 110,
+            },
+            {
+                field: "rendite",
+                headerName: "Rendite",
+                minWidth: 80,
                 filter: false,
                 floatingFilter: false,
                 editable: false,
             },
             {
                 field: "var",
-                headerName: "Var",
+                headerName: "VaR",
                 minWidth: 120,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
@@ -877,8 +901,8 @@
             },
             {
                 field: "liquidity_risk",
-                headerName: "Liquidity Risk",
-                minWidth: 150,
+                headerName: "Liq. Risk",
+                minWidth: 100,
                 type: "numericColumn",
                 valueFormatter: currencyFormatter,
                 filter: false,
@@ -916,9 +940,13 @@
 
     function currencyFormatterNominale(params: ValueFormatterParams) {
         if (params.value !== undefined && params.value !== null) {
-            return params.value == null ? "" : numberWithCommas(Math.round(params.value));
+            return params.value == null
+                ? ""
+                : numberWithCommas(Math.round(params.value));
         }
-        return params.value == null ? "" : numberWithCommas(Math.round(params.value));
+        return params.value == null
+            ? ""
+            : numberWithCommas(Math.round(params.value));
     }
 
     function numberWithCommas(x: string | number | boolean) {
@@ -946,28 +974,28 @@
             class="ag-theme-balham-dark col-span-9 graph-container rounded-lg cont"
         />
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont">
-            <h1 class="text-white text-2xl m-4">Sektoren</h1>
-            <div class="flex-1 w-full">
+            <h1 class="text-white text-2xl mt-2 m-4">Sektoren</h1>
+            <div class="flex-1 max-w-508">
                 <D3VerticalBar bind:data={sectorResSorted} />
             </div>
         </div>
     </div>
     <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont">
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
-            <h1 class="text-white text-2xl m-4">Assetklassen</h1>
-            <div class="flex-1 w-full">
+            <h1 class="text-white text-2xl mt-2 m-4">Assetklassen</h1>
+            <div id="donut-id" class="flex-1 max-w-508">
                 <D3Doughnut bind:data={assetTypeResSorted} />
             </div>
         </div>
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
-            <h1 class="text-white text-2xl m-4">Währungen</h1>
-            <div class="flex-1 w-full">
+            <h1 class="text-white text-2xl mt-2 m-4">Währungen</h1>
+            <div id="bar-id" class="flex-1 max-w-683">
                 <D3Bar bind:data={currencyResSorted} />
             </div>
         </div>
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col h-full">
-            <h1 class=" text-white text-2xl m-4">Länder</h1>
-            <div class="flex-1 w-full">
+            <h1 class=" text-white text-2xl mt-2 m-4">Länder</h1>
+            <div id="donut-2-id" class="flex-1 max-w-683">
                 <D3Doughnut bind:data={countryResSorted} />
             </div>
         </div>

@@ -19,6 +19,7 @@
     import Darkmode from "./icon/darkmode.svelte";
     import CommentDots from "./icon/comment-dots.svelte";
     import Web from "./icon/web.svelte";
+    import { resolveRoute } from "$app/paths";
 
     export let routes;
     let showMenu = false;
@@ -81,10 +82,17 @@
             : 'hidden'}"
     >
         {#each routes as route}
-            <a
-                class="flex-1 h-full align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
-                href={route.href}>{route.display_name}</a
-            >
+            {#if route.display_name == "Portfolio"}
+                <a
+                    class="flex-1 h-full bg-[#1e1e1e] align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    href={route.href}>{route.display_name}</a
+                >
+            {:else}
+                <a
+                    class="flex-1 h-full align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    href={route.href}>{route.display_name}</a
+                >
+            {/if}
         {/each}
     </div>
     <div class="items-end flex ml-auto h-full flex items-center">
@@ -113,7 +121,10 @@
             />
         </form>
         <div class="flex items-end pl-16 pr-4 mb-1 text-black dark:text-white">
-            <button class="items-center" on:click={() => (isUserMenuShow = !isUserMenuShow)}>
+            <button
+                class="items-center"
+                on:click={() => (isUserMenuShow = !isUserMenuShow)}
+            >
                 <User width="1.75em" height="1.75em" fill="white" />
             </button>
             <!-- Dropdown menu -->
@@ -133,7 +144,7 @@
                         ></a
                     >
                 </DropdownItem>
-                <DropdownDivider class="border-b border-[#3a3a3a] mx-4"/>
+                <DropdownDivider class="border-b border-[#3a3a3a] mx-4" />
                 <DropdownItem class="hover:bg-[#1e1e1e]">
                     <a class=" flex items-center" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
@@ -193,11 +204,7 @@
                 <DropdownItem class="hover:bg-[#1e1e1e]">
                     <a class=" flex items-center hover:" href="/dashboard">
                         <div class="bg-[#3A3B3C] rounded-full p-2">
-                            <Web
-                                height="1.75em"
-                                width="1.75em"
-                                fill="white"
-                            />
+                            <Web height="1.75em" width="1.75em" fill="white" />
                         </div>
                         <span class="ml-4 align-center text-center"
                             >Sprache</span
