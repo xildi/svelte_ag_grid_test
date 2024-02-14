@@ -537,7 +537,8 @@
                 minWidth: 70,
                 filter: false,
                 floatingFilter: false,
-                editable: false,
+                editable: true,
+                onCellValueChanged: cellValueChanged,
             },
             {
                 field: "exposure",
@@ -569,8 +570,7 @@
                 minWidth: 70,
                 filter: false,
                 floatingFilter: false,
-                editable: true,
-                onCellValueChanged: cellValueChanged,
+                editable: false,
             },
             {
                 field: "liquidity_risk",
