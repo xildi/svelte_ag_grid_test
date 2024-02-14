@@ -137,7 +137,7 @@
                         ><img
                             src="img/gianni.png"
                             alt="Userimage"
-                            class="h-64 w-64"
+                            class="h-16 w-16"
                         />
                         <span class="ml-4 align-center text-center"
                             >Gianni Notari</span
