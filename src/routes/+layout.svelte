@@ -19,9 +19,11 @@
         height: 100%;
     }
     #content {
-        height: 98vh;
+        overflow: hidden;
+        height: 100%;
     }
     #page {
+        overflow: hidden;
         height: 100%;
     }
 </style>

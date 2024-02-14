@@ -76,7 +76,7 @@
 
     function starRenderer(params: ICellRendererParams) {
         if (params !== undefined && params !== null) {
-            let res = `<span>`;
+            let res = `<span class="flex items-center h-full">`;
             for (let i = 0; i < params.value; i++) {
                 res += starRendererHelper();
             }
@@ -92,7 +92,7 @@
             return `<span>No Stars</span>`;
         }
         if (params !== undefined && params !== null) {
-            let res = `<span>`;
+            let res = `<span class="flex">`;
             for (let i = 0; i < params.value; i++) {
                 res += starRendererHelper();
             }
@@ -141,7 +141,7 @@
                 (value) => value.name === params.value,
             );
             if (flag_code !== undefined && flag_code !== null) {
-                return `<span><img src="img/flags/${flag_code.code}.webp" width="15" height="10" /> ${params.value}</span>`;
+                return `<span class="flex items-center h-full"><img src="img/flags/${flag_code.code}.webp" width="15" height="10" class="mr-2"/> ${params.value}</span>`;
             }
             if (params.value !== undefined && params.value !== null) {
                 return `<span>${params.value}</span>`;
@@ -757,33 +757,37 @@
 </script>
 
 <div>
-    <div class="dropdown_container">
-        <img
-            height="50vh"
-            src="/img/Logo_dunkel.svg"
-            class="attachment-full size-full wp-image-27 left"
-            alt="Xildi Logo - More than numbers"
-        />
-        <select
-            class="dropdown pos"
-            bind:value={row_count}
-            on:change={onChange}
-        >
-            <option value={100}> 100 </option>
-            <option value={1000}> 1000 </option>
-            <option value={10000}> 10000 </option>
-            <option value={50000}> 50000 </option>
-            <option value={100000}> 100000 </option>
-        </select>
-        <select class="dropdown pos" bind:value={theme}>
-            {#each themes as theme}
-                <option value={theme.key}>
-                    {theme.name}
-                </option>
-            {/each}
-        </select>
+    <div class="dropdown_container overflow-hidden flex justify-between items-center mr-4 ml-4 mt-4 mb-4 cont">
+        <div class="flex items-center">
+            <img
+                src="/img/Logo_dunkel.svg"
+                class="attachment-full h-10 size-full left align-left"
+                alt="Logo"
+            />
+        </div>
+        <div class="flex items-center">
+            <select 
+                class="dropdown pos align-right"
+                bind:value={row_count}
+                on:change={onChange}
+            >
+                <option value={100}> 100 </option>
+                <option value={1000}> 1000 </option>
+                <option value={10000}> 10000 </option>
+                <option value={50000}> 50000 </option>
+                <option value={100000}> 100000 </option>
+            </select>
+            <select class="dropdown pos" bind:value={theme}>
+                {#each themes as theme}
+                    <option value={theme.key}>
+                        {theme.name}
+                    </option>
+                {/each}
+            </select>
+        </div>
     </div>
-
+    
+    
     <div id="myGrid" style="height: 93vh; width:100%;" class={theme} />
 </div>
 
