@@ -36,15 +36,13 @@
     $: colorScale = d3
         .scaleOrdinal(d3.schemeTableau10)
         .domain(data.map((d) => d.key))
-        .range(
-            ["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"],
-        );
+        .range(["#094f6b", "#0f84b2", "#42a9d2", "#76cced", "#9fd7ed"]);
     const formatValue = (value) => {
         if (value >= 1e9) {
             return d3.format(".2s")(value).replace(/G/, " Mrd.");
         } else if (value >= 1e6) {
             return d3.format(".2s")(value).replace(/M/, " Mio.");
-        } else if (value >= 1e3) { 
+        } else if (value >= 1e3) {
             return d3.format(".2s")(value).replace(/k/, " K");
         }
         return value;
@@ -52,11 +50,10 @@
 </script>
 
 <svg
-    {width}
-    {height}
     viewBox="0 0 {width} {height}"
-    style:max-width="100%"
+    style:width="100%"
     style:height="100%"
+    style=""
 >
     <!-- Add a rect for each bar. -->
     <g>
@@ -96,3 +93,11 @@
         {/each}
     </g>
 </svg>
+
+<style>
+    svg{
+        width: 100%;
+        height: 100%;
+        preserveAspectRatio: "xMinYMin meet";
+    }
+</style>

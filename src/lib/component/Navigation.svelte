@@ -48,19 +48,18 @@
         </a>
     </div>
 
-    <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
     <div
-        class=" mt-0 space-y-4 flex space-y-0  items-center  w-4/6 "
+        class=" mt-0 flex space-y-0  items-center  w-4/6 "
     >
         {#each routes as route}
             {#if route.display_name == "Portfolio"}
                 <a
-                    class="flex-1 h-full bg-[#1e1e1e] align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    class="flex-1 h-full bg-[#1e1e1e] mt-0 align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
                     href={route.href}>{route.display_name}</a
                 >
             {:else}
                 <a
-                    class="flex-1 h-full align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    class="flex-1 h-full align-center mt-0 text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
                     href={route.href}>{route.display_name}</a
                 >
             {/if}

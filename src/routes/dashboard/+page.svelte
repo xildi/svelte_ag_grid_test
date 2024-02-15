@@ -1001,27 +1001,27 @@
             style="width:100%;"
             class="ag-theme-balham-dark col-span-9 graph-container rounded-lg cont"
         />
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont">
+        <div class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont overflow-hidden">
             <h1 class="text-white text-2xl m-4 ml-6">Sektoren</h1>
             <div class="flex-1 max-w-508">
                 <D3VerticalBar bind:data={sectorResSorted} />
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont">
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
+    <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont ">
+        <div class="bg-[#2c2c2c] rounded-lg flex flex-col overflow-hidden">
             <h1 class="text-white text-2xl m-4 ml-6">Assetklassen</h1>
             <div id="donut-id" class="flex-1 max-w-508">
                 <D3Doughnut bind:data={assetTypeResSorted} />
             </div>
         </div>
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col">
+        <div class="bg-[#2c2c2c] rounded-lg flex flex-col overflow-hidden">
             <h1 class="text-white text-2xl m-4 ml-6">Währungen</h1>
             <div id="bar-id" class="flex-1 max-w-683">
                 <D3Bar bind:data={currencyResSorted} />
             </div>
         </div>
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col h-full">
+        <div class="bg-[#2c2c2c] rounded-lg flex flex-col h-full overflow-hidden">
             <h1 class=" text-white text-2xl m-4 ml-6">Länder</h1>
             <div id="donut-2-id" class="flex-1 max-w-683">
                 <D3Doughnut bind:data={countryResSorted} />
@@ -1042,4 +1042,5 @@
     .cont {
         height: calc((100vh - 6em) / 2) !important;
     }
+    
 </style>
