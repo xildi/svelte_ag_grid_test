@@ -12,6 +12,7 @@
 
   import keyframes from "./keyframes2.json";
 
+
   const duration = 250; // ms between keyframes
   const barCount = 15; // how many bars to show
   const barMargin = 2; // space between bars
@@ -29,6 +30,7 @@
   let figureHeight = 0;
   let currentKeyframe = 0;
   let isEnabled = false;
+  let selectedKeyframeIndex;
 
   // update dimensions
   $: width = figureWidth;
@@ -38,13 +40,49 @@
   // update data
   $: isEnabled = currentKeyframe < keyframeCount;
   $: frameIndex = Math.min(currentKeyframe, keyframeCount - 1);
-  $: frame = keyframes[frameIndex];
+  $: frame = get_key_frame(selectedKeyframeIndex, frameIndex);
   $: keyframeDate = frame[0];
   $: keyframeData = frame[1];
   $: currentData = names.map((name) => ({
     ...keyframeData.find((d) => d.name == name),
   }));
 
+  function get_key_frame(selectedKeyframeIndex, frameIndex) {
+    if (selectedKeyframeIndex !== undefined && selectedKeyframeIndex !== null) {
+      let keyframe = keyframes[selectedKeyframeIndex];
+      isEnabled = false;
+      return keyframe;
+    }
+    return keyframes[frameIndex];
+  }
+  // function formatDateToMMYYYY(date2: Date) {
+  //     return new Intl.DateTimeFormat("en-US", {
+  //       month: "2-digit",
+  //       year: "numeric",
+  //     }).format(date2);
+  // }
+  function formatDateToDDMMYYYY(dateString: string): string {
+    const date = new Date(dateString);
+
+    // Set the day to 01
+    date.setDate(1);
+
+    const formattedDate = date
+      .toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
+
+    return formattedDate;
+  }
+
+  function removeDayFromDate(dateString: string): string {
+    // Assuming dateString is in the format "YYYY-MM-DD"
+    const yearMonth = dateString.slice(0, 7); // Extract the "YYYY-MM" part
+    return yearMonth;
+  }
   // update stores and context
   $: data.set(currentData);
   $: dimensions.set({
@@ -55,7 +93,7 @@
   });
   $: xMax.set(Math.max(...keyframeData.map((d) => d.value)));
   $: scales.set({
-    x: scaleLog().domain([70000000, $xMax]).range([0, $dimensions.width]),
+    x: scaleLog().domain([70000000, $xMax]).range([0, $dimensions.width - 100]),
     y: scaleLinear().domain([0, barCount]).range([0, $dimensions.height]),
   });
   $: chartContext = { dimensions, scales, data, names };
@@ -87,14 +125,20 @@
       <Ticker date={keyframeDate} />
     </div>
   </figure>
+  <div class="div_width">
+    <input style="width: 100vw" type="range" min="0" max="{keyframeCount-1}" value={selectedKeyframeIndex} on:input={(e) => (selectedKeyframeIndex = e.target.value || selectedKeyframeIndex)}/>
+  </div>
 {/if}
 
 <style>
+  div_width {
+    width: 100vw;
+  }
   figure {
     display: block;
     position: relative;
     width: 98%;
-    height: 50vh;
+    height: 75vh;
     min-height: 420px;
     margin: 0;
     user-select: none;

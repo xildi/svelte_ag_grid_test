@@ -11,7 +11,7 @@
 
   $: w = $scales.x(value) || 0;
   $: y = ($scales.y(rank) || 0) + $dimensions.barMargin / 2;
-  $: barColor = `--bar-color: ${fill}95;`;
+  $: barColor = `--bar-color: ${fill}99;`;
   $: transform = `transform: translateY(${y}px);`;
   $: width = `width: ${w - borderWidth}px;`;
   $: height = `height: ${$dimensions.barHeight || 0}px;`;

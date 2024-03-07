@@ -10,7 +10,6 @@
         type ValueFormatterParams,
         type ValueGetterParams,
     } from "ag-grid-community";
-
     import D3Doughnut from "$lib/component/d3/Donut.svelte";
     import D3Bar from "$lib/component/d3/Bar.svelte";
     import D3VerticalBar from "$lib/component/d3/VerticalBar.svelte";
@@ -767,7 +766,7 @@
             filter: "agTextColumnFilter",
             enablePivot: false,
         },
-            tooltipShowDelay: 200,
+        tooltipShowDelay: 200,
         enableCharts: true,
         enableRangeSelection: true,
         enableFillHandle: true,
@@ -895,7 +894,7 @@
                         },
                     },
                 },
-                width: 100
+                width: 100,
             },
             {
                 field: "rendite",
@@ -950,13 +949,14 @@
             }
         }
     }
-    
+
     function roundingFormatter(params: ValueFormatterParams) {
         if (params.value !== undefined && params.value !== null) {
-            return params.value == null ? "" : Math.round(params.value * 100) /100 
-;
+            return params.value == null
+                ? ""
+                : Math.round(params.value * 100) / 100;
         }
-        return params.value == null ? "" : Math.round(params.value * 100) /100;
+        return params.value == null ? "" : Math.round(params.value * 100) / 100;
     }
 
     function currencyFormatter(params: ValueFormatterParams) {
@@ -1001,14 +1001,16 @@
             style="width:100%;"
             class="ag-theme-balham-dark col-span-9 graph-container rounded-lg cont"
         />
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont overflow-hidden">
+        <div
+            class="bg-[#2c2c2c] rounded-lg flex flex-col col-span-3 cont overflow-hidden"
+        >
             <h1 class="text-white text-2xl m-4 ml-6">Sektoren</h1>
             <div class="flex-1 max-w-508">
                 <D3VerticalBar bind:data={sectorResSorted} />
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont ">
+    <div class="grid grid-cols-3 gap-4 grid-rows-1 mr-4 ml-4 mb-4 cont">
         <div class="bg-[#2c2c2c] rounded-lg flex flex-col overflow-hidden">
             <h1 class="text-white text-2xl m-4 ml-6">Assetklassen</h1>
             <div id="donut-id" class="flex-1 max-w-508">
@@ -1021,7 +1023,9 @@
                 <D3Bar bind:data={currencyResSorted} />
             </div>
         </div>
-        <div class="bg-[#2c2c2c] rounded-lg flex flex-col h-full overflow-hidden">
+        <div
+            class="bg-[#2c2c2c] rounded-lg flex flex-col h-full overflow-hidden"
+        >
             <h1 class=" text-white text-2xl m-4 ml-6">Länder</h1>
             <div id="donut-2-id" class="flex-1 max-w-683">
                 <D3Doughnut bind:data={countryResSorted} />
@@ -1042,5 +1046,4 @@
     .cont {
         height: calc((100vh - 6em) / 2) !important;
     }
-    
 </style>

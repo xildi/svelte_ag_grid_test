@@ -4,30 +4,33 @@
 
   export let value;
   export let rank;
+  export let image;
   export let i;
-  export let category;
 
   const { names, scales, dimensions } = getContext("Chart");
   const formatNumber = (d) => format(",.0f")(d).replace(/,/g, "'");
   function formatNumberAsMio(value) {
     return formatNumber((value / 1e6).toFixed(0)) + " Mio";
   }
-  
+
   $: x = $scales.x(value);
   $: y = $scales.y(rank) + $dimensions.barMargin / 2;
   $: height = $dimensions.barHeight;
 </script>
-
+{#if value !== undefined && value !== null && value > 0}
 <div
   class="label"
   style="height: {height}px; transform: translate({x}px, {y}px);"
 >
+{#if image !== null && image !== undefined}
+  <img class="image" style="height: {height-5}px" src="img/logos/{image}"  />
+{/if}
   <div class="inner">
     <p class="name">{names[i]}</p>
     <p class="value">{formatNumberAsMio(value)}</p>
   </div>
 </div>
-
+{/if}
 <style>
   .label {
     position: absolute;
@@ -55,5 +58,9 @@
     font-size: 0.75em;
     font-feature-settings: "tnum" 1;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .image {
+    position: absolute;
+    transform: translate(0px, 2.5px);
   }
 </style>

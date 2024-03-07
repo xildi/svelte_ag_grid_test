@@ -1,5 +1,9 @@
 <script lang="ts">
-    import { AgCharts, type AgChartOptions, type AgChartLabelFormatterParams } from "ag-charts-community";
+    import {
+        AgCharts,
+        type AgChartOptions,
+        type AgChartLabelFormatterParams,
+    } from "ag-charts-community";
     import { onMount } from "svelte";
     export let data;
     export let id;
@@ -11,26 +15,26 @@
             series: [
                 {
                     type: "bar",
-                    direction: 'horizontal',
+                    direction: "horizontal",
                     legend: false,
                     xKey: "name",
                     yKey: "sum",
                     fill: "#094F6B",
                     label: {
-                        placement: 'outside',
-                    }
+                        placement: "outside",
+                    },
                 },
             ],
         };
         AgCharts.create(options);
-    });var myTheme = {
+    });
+    var myTheme = {
         baseTheme: "ag-default-dark",
         overrides: {
             common: {
-            
                 background: {
-                         fill: '#2c2c2c',
-                     },
+                    fill: "#2c2c2c",
+                },
                 title: {
                     fontSize: 24,
                 },
@@ -47,4 +51,4 @@
     };
 </script>
 
-<div id={id} class="col-span-1  " style="height: 500px;"></div>
+<div {id} class="col-span-1" style="height: 500px;"></div>
