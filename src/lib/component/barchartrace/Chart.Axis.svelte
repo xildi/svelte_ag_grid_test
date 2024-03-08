@@ -4,7 +4,11 @@
   import { format } from "d3";
 
   const { scales } = getContext("Chart");
-  $: ticks = $scales.x.ticks(2).slice(1); // don't need to show 0
+
+  const desiredTicks = [100000000, 1000000000, 10000000000];
+
+  // $: ticks = $scales.x.ticks(1.9); // don't need to show 0
+  $: ticks = desiredTicks.filter(value => value <= $scales.x.domain()[1]); // Filter ticks based on domain
   function formatNumber(value) {
     const absValue = Math.abs(value);
 

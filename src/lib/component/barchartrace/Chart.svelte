@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { scaleLinear, scaleLog } from "d3";
+  import { scaleLinear, scaleLog, select } from "d3";
   import { setContext } from "svelte";
   import { writable } from "svelte/store";
   import { tweened } from "svelte/motion";
+  import { RangeSlider } from "@skeletonlabs/skeleton";
 
   import Timer from "./Timer.svelte";
   import Bars from "./Chart.Bars.svelte";
@@ -11,7 +12,6 @@
   import Ticker from "./Chart.Ticker.svelte";
 
   import keyframes from "./keyframes2.json";
-
 
   const duration = 250; // ms between keyframes
   const barCount = 15; // how many bars to show
@@ -36,7 +36,11 @@
   $: width = figureWidth;
   $: height = figureHeight;
   $: barHeight = height / barCount - barMargin;
-
+  const onRangeInput = (e) => {
+    selectedKeyframeIndex = e.target.value || selectedKeyframeIndex;
+    frameIndex = selectedKeyframeIndex;
+    currentKeyframe = frameIndex;
+  };
   // update data
   $: isEnabled = currentKeyframe < keyframeCount;
   $: frameIndex = Math.min(currentKeyframe, keyframeCount - 1);
@@ -83,6 +87,7 @@
     const yearMonth = dateString.slice(0, 7); // Extract the "YYYY-MM" part
     return yearMonth;
   }
+
   // update stores and context
   $: data.set(currentData);
   $: dimensions.set({
@@ -93,7 +98,9 @@
   });
   $: xMax.set(Math.max(...keyframeData.map((d) => d.value)));
   $: scales.set({
-    x: scaleLog().domain([70000000, $xMax]).range([0, $dimensions.width - 100]),
+    x: scaleLog()
+      .domain([70000000, $xMax])
+      .range([0, $dimensions.width - 100]),
     y: scaleLinear().domain([0, barCount]).range([0, $dimensions.height]),
   });
   $: chartContext = { dimensions, scales, data, names };
@@ -105,8 +112,8 @@
     bind:currentKeyframe
     keyframeCount={keyframes.length}
     {duration}
-    bind:isEnabled={isEnabled}
-    bind:selectedKeyframeIndex={selectedKeyframeIndex}
+    bind:isEnabled
+    bind:selectedKeyframeIndex
     on:end={() => (isEnabled = false)}
   />
   <figure bind:offsetWidth={figureWidth} bind:offsetHeight={figureHeight}>
@@ -127,7 +134,14 @@
     </div>
   </figure>
   <div class="div_width">
-    <input style="width: 100vw" type="range" min="0" max="{keyframeCount-1}" value={frameIndex} on:input={(e) => (selectedKeyframeIndex = e.target.value || selectedKeyframeIndex)}/>
+    <input
+      style="width: 100vw;"
+      type="range"
+      min="0"
+      max={keyframeCount - 1}
+      value={frameIndex}
+      on:input={onRangeInput}
+    />
   </div>
 {/if}
 

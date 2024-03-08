@@ -54,12 +54,12 @@
         {#each routes as route}
             {#if route.display_name == "Portfolio"}
                 <a
-                    class="flex-1 h-full bg-[#1e1e1e] mt-0 align-center text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    class="flex-1 h-full bg-[#1e1e1e] mt-0 align-center text-black  text-white hover:bg-[#1e1e1e] flex items-center justify-center"
                     href={route.href}>{route.display_name}</a
                 >
             {:else}
                 <a
-                    class="flex-1 h-full align-center mt-0 text-black dark:text-white hover:bg-[#1e1e1e] flex items-center justify-center"
+                    class="flex-1 h-full align-center mt-0 text-black  text-white hover:bg-[#1e1e1e] flex items-center justify-center"
                     href={route.href}>{route.display_name}</a
                 >
             {/if}
@@ -109,7 +109,7 @@
                             alt="Userimage"
                             class="h-10 w-10"
                         />
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >Gianni Notari</span
                         ></a
                     >
@@ -124,7 +124,7 @@
                                 fill="white"
                             />
                         </div>
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >User-Einstellungen</span
                         >
                     </a>
@@ -138,7 +138,7 @@
                                 fill="white"
                             />
                         </div>
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >Hilfe und Support</span
                         >
                     </a>
@@ -152,7 +152,7 @@
                                 fill="white"
                             />
                         </div>
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >Anzeige & Bedienhilfe</span
                         >
                     </a>
@@ -166,7 +166,7 @@
                                 fill="white"
                             />
                         </div>
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >Feedback geben</span
                         >
                     </a>
@@ -176,7 +176,7 @@
                         <div class="bg-[#3A3B3C] rounded-full p-2">
                             <Web height="1.75em" width="1.75em" fill="white" />
                         </div>
-                        <span class="ml-4 align-center text-center"
+                        <span class="ml-4 align-center text-center text-white"
                             >Sprache</span
                         >
                     </a>
@@ -185,7 +185,7 @@
         </div>
         <button
             on:click={loggedInClick}
-            class=" text-black  pr-4 dark:text-white"
+            class=" text-black  pr-4 text-white"
         >
             {#if loggedIn}
                 <PowerOff width="1.75em" height="1.75em" fill="white" />

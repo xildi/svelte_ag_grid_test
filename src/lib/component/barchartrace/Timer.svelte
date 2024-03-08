@@ -1,6 +1,10 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { timer, elapsed } from "./timer.js";
+  import PhPlayFill from "~icons/ph/play-fill";
+  import PhPauseFill from "~icons/ph/pause-fill";
+  import IcRoundRefresh from "~icons/ic/round-refresh";
+
   export let currentKeyframe = 0;
   export let keyframeCount = 0;
   export let duration = 1000;
@@ -16,13 +20,27 @@
   };
   const onPause = () => {
     isEnabled = false;
-    selectedKeyframeIndex = undefined;
-  }
+    if (selectedKeyframeIndex !== undefined) {
+      currentKeyframe = selectedKeyframeIndex;
+      timer.set(selectedKeyframeIndex * duration);
+      selectedKeyframeIndex = undefined;
+    }
+  };
   const onStart = () => {
     isEnabled = true;
-    selectedKeyframeIndex = undefined;
+    if (selectedKeyframeIndex !== undefined) {
+      currentKeyframe = selectedKeyframeIndex;
+      timer.set(selectedKeyframeIndex * duration);
+      selectedKeyframeIndex = undefined;
+    }
+  };
+  $: if (isEnabled) {
+    if (selectedKeyframeIndex == undefined) {
+      currentKeyframe = Math.floor($elapsed / duration);
+    } else {
+      currentKeyframe = selectedKeyframeIndex;
+    }
   }
-  $: if (isEnabled) currentKeyframe = Math.floor($elapsed / duration);
 
   $: if (currentKeyframe === keyframeCount) dispatch("end");
 
@@ -30,9 +48,9 @@
 </script>
 
 <div>
-  <button on:click={onStart}>Start</button>
-  <button on:click={onPause}>Pause</button>
-  <button on:click={onReset}>Zurücksetzen</button>
+  <button on:click={onStart}><PhPlayFill/></button>
+  <button on:click={onPause}><PhPauseFill/></button>
+  <button on:click={onReset}><IcRoundRefresh/></button>
 </div>
 
 <style>
