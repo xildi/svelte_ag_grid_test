@@ -32,7 +32,6 @@
             display_name: "Reporting",
         },
     ];
-
 </script>
 
 <div class="flex flex-col h-screen">

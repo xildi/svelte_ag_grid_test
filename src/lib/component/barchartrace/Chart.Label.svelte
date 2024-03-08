@@ -61,6 +61,6 @@
   }
   .image {
     position: absolute;
-    transform: translate(0px, 2.5px);
+    transform: translate(5px, 2.5px);
   }
 </style>

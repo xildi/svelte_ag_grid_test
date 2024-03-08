@@ -105,7 +105,8 @@
     bind:currentKeyframe
     keyframeCount={keyframes.length}
     {duration}
-    {isEnabled}
+    bind:isEnabled={isEnabled}
+    bind:selectedKeyframeIndex={selectedKeyframeIndex}
     on:end={() => (isEnabled = false)}
   />
   <figure bind:offsetWidth={figureWidth} bind:offsetHeight={figureHeight}>
@@ -126,7 +127,7 @@
     </div>
   </figure>
   <div class="div_width">
-    <input style="width: 100vw" type="range" min="0" max="{keyframeCount-1}" value={selectedKeyframeIndex} on:input={(e) => (selectedKeyframeIndex = e.target.value || selectedKeyframeIndex)}/>
+    <input style="width: 100vw" type="range" min="0" max="{keyframeCount-1}" value={frameIndex} on:input={(e) => (selectedKeyframeIndex = e.target.value || selectedKeyframeIndex)}/>
   </div>
 {/if}
 

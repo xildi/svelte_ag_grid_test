@@ -5,14 +5,23 @@
   export let keyframeCount = 0;
   export let duration = 1000;
   export let isEnabled = false;
+  export let selectedKeyframeIndex;
 
   const dispatch = createEventDispatcher();
 
   const onReset = () => {
     currentKeyframe = 0;
+    selectedKeyframeIndex = undefined;
     timer.reset();
   };
-
+  const onPause = () => {
+    isEnabled = false;
+    selectedKeyframeIndex = undefined;
+  }
+  const onStart = () => {
+    isEnabled = true;
+    selectedKeyframeIndex = undefined;
+  }
   $: if (isEnabled) currentKeyframe = Math.floor($elapsed / duration);
 
   $: if (currentKeyframe === keyframeCount) dispatch("end");
@@ -21,8 +30,8 @@
 </script>
 
 <div>
-  <button on:click={() => (isEnabled = true)}>Start</button>
-  <button on:click={() => (isEnabled = false)}>Pause</button>
+  <button on:click={onStart}>Start</button>
+  <button on:click={onPause}>Pause</button>
   <button on:click={onReset}>Zurücksetzen</button>
 </div>
 
