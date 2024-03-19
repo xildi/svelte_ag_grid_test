@@ -12,7 +12,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   :global(body) {
-    background-color: #1e1e1e;
+    background-color: #000000;
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }

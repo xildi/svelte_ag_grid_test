@@ -100,7 +100,7 @@
   $: scales.set({
     x: scaleLog()
       .domain([70000000, $xMax])
-      .range([0, $dimensions.width - 100]),
+      .range([0, $dimensions.width - 55]),
     y: scaleLinear().domain([0, barCount]).range([0, $dimensions.height]),
   });
   $: chartContext = { dimensions, scales, data, names };
@@ -133,9 +133,9 @@
       <Ticker date={keyframeDate} />
     </div>
   </figure>
-  <div class="div_width">
+  <div class="div_width ">
     <input
-      style="width: 100vw;"
+      style="width: 98vw;"
       type="range"
       min="0"
       max={keyframeCount - 1}
@@ -148,6 +148,7 @@
 <style>
   div_width {
     width: 100vw;
+    text-align: center;
   }
   figure {
     display: block;

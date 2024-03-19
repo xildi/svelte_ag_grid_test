@@ -44,7 +44,7 @@
     justify-content: center;
     padding-right: 0.9em;
     height: 100%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   }
   p {
     margin: 0;
@@ -53,11 +53,12 @@
   }
   .name {
     font-weight: 400;
+
   }
   .value {
     font-size: 0.75em;
     font-feature-settings: "tnum" 1;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   }
   .image {
     position: absolute;

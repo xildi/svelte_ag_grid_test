@@ -756,6 +756,9 @@
             };
         }
     };
+    const processCellForClipboard = (params: ProcessCellForExportParams) => {
+        return params.value;
+    };
     const gridOptions: GridOptions = {
         sideBar: false,
         defaultColDef: {
@@ -766,6 +769,7 @@
             filter: "agTextColumnFilter",
             enablePivot: false,
         },
+        processCellForClipboard: processCellForClipboard,
         tooltipShowDelay: 200,
         enableCharts: true,
         enableRangeSelection: true,

@@ -13,7 +13,6 @@
         type SparklineMarkerOptions,
         type MarkerFormatterParams,
     } from "ag-grid-community";
-
     import type { PageData } from "./$types";
     import { LicenseManager } from "ag-grid-enterprise";
     export let data: PageData;
@@ -128,6 +127,9 @@
                 content: params.context.data.total_winnings,
             };
         }
+    };
+    const processCellForClipboard = (params: ProcessCellForExportParams) => {
+        return params.value;
     };
 
     function countryFlagRenderer(params: ICellRendererParams) {
@@ -380,6 +382,7 @@
             floatingFilter: true,
             minWidth: 150,
         },
+        processCellForClipboard: processCellForClipboard,
         defaultColGroupDef: {
             marryChildren: true,
         },
@@ -667,18 +670,54 @@
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
-                                params.data !== undefined && params.data !== null ? params.data.jan : 0,
-                                params.data !== undefined && params.data !== null ? params.data.feb : 0,
-                                params.data !== undefined && params.data !== null ? params.data.mar : 0,
-                                params.data !== undefined && params.data !== null ? params.data.apr : 0,
-                                params.data !== undefined && params.data !== null ? params.data.may : 0,
-                                params.data !== undefined && params.data !== null ? params.data.jun : 0,
-                                params.data !== undefined && params.data !== null ? params.data.jul : 0,
-                                params.data !== undefined && params.data !== null ? params.data.aug : 0,
-                                params.data !== undefined && params.data !== null ? params.data.sep : 0,
-                                params.data !== undefined && params.data !== null ? params.data.oct : 0,
-                                params.data !== undefined && params.data !== null ? params.data.nov : 0,
-                                params.data !== undefined && params.data !== null ? params.data.dec : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jan
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.feb
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.mar
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.apr
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.may
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jun
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jul
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.aug
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.sep
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.oct
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.nov
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.dec
+                                    : 0,
                             ];
                             return formattedData;
                         },
@@ -699,18 +738,54 @@
                         cellRenderer: "agSparklineCellRenderer",
                         valueGetter: (params: ValueGetterParams) => {
                             const formattedData: any = [
-                                params.data !== undefined && params.data !== null ? params.data.jan : 0,
-                                params.data !== undefined && params.data !== null ? params.data.feb : 0,
-                                params.data !== undefined && params.data !== null ? params.data.mar : 0,
-                                params.data !== undefined && params.data !== null ? params.data.apr : 0,
-                                params.data !== undefined && params.data !== null ? params.data.may : 0,
-                                params.data !== undefined && params.data !== null ? params.data.jun : 0,
-                                params.data !== undefined && params.data !== null ? params.data.jul : 0,
-                                params.data !== undefined && params.data !== null ? params.data.aug : 0,
-                                params.data !== undefined && params.data !== null ? params.data.sep : 0,
-                                params.data !== undefined && params.data !== null ? params.data.oct : 0,
-                                params.data !== undefined && params.data !== null ? params.data.nov : 0,
-                                params.data !== undefined && params.data !== null ? params.data.dec : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jan
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.feb
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.mar
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.apr
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.may
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jun
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.jul
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.aug
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.sep
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.oct
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.nov
+                                    : 0,
+                                params.data !== undefined &&
+                                params.data !== null
+                                    ? params.data.dec
+                                    : 0,
                             ];
                             return formattedData;
                         },
@@ -757,7 +832,9 @@
 </script>
 
 <div>
-    <div class="dropdown_container overflow-hidden flex justify-between items-center mr-4 ml-4 mt-4 mb-4 cont">
+    <div
+        class="dropdown_container overflow-hidden flex justify-between items-center mr-4 ml-4 mt-4 mb-4 cont"
+    >
         <div class="flex items-center">
             <img
                 src="/img/Logo_dunkel.svg"
@@ -766,7 +843,7 @@
             />
         </div>
         <div class="flex items-center">
-            <select 
+            <select
                 class="dropdown pos align-right"
                 bind:value={row_count}
                 on:change={onChange}
@@ -786,8 +863,7 @@
             </select>
         </div>
     </div>
-    
-    
+
     <div id="myGrid" style="height: 93vh; width:100%;" class={theme} />
 </div>
 

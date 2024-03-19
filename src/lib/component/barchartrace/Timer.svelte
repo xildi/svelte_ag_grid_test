@@ -57,7 +57,7 @@
   div {
     display: flex;
     justify-content: center;
-    margin-bottom: 3em;
+    margin-bottom: 0.75em;
   }
 
   button {
